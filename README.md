@@ -5,7 +5,7 @@
 - `git push -u origin {branch-name}`: to push/upload changes from newly created branch to online(github)
 - `git checkout -b {branch-name}`: creates a new branch then checout on that branch
 - `git branch`: to check your current branch
-- `got branch {branch-name}`: create new branch
+- `git branch {branch-name}`: create new branch
 - `git status` check the modified files
 - `git add .`: add all files to git
 - `git commit -m "message here"`: commit changes
@@ -26,6 +26,8 @@
 2. `git commit -m "message here"` commit the changes and add a brief description to your changes
 3. push the changes
 4. create a pull request
-
+5. add a reviewer
+6. If code changes is approve do `sqaush and merge`
+7. after merging the code `delete the branch
 
 
