@@ -25,11 +25,11 @@ if(isset($_POST['submit'])){
         if($user_type == "user"){
             mysqli_query($conn, "INSERT INTO user_form(name, email, password, user_type) 
         VALUES ('$name','$email','$pass','$user_type')");
-        header('location:login_form.php');
+        header('location:index.php');
         }else if($user_type == "admin"){
             mysqli_query($conn, "INSERT INTO admin_form(name, email, password, user_type) 
         VALUES ('$name','$email','$pass','$user_type')");
-        header('location:login_form.php');
+        header('location:index.php');
         }else{
             $error[] = "there's an error occured";
         }
@@ -75,7 +75,7 @@ if(isset($_POST['submit'])){
 
         </select>
         <input type="submit" name="submit" value="register now" class="form-btn">
-        <p>already have an account? <a href="login_form.php">login now</a></p>
+        <p>already have an account? <a href="index.php">login now</a></p>
     </form>
 </div>
 </body>
