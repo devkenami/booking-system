@@ -6,7 +6,7 @@
     <title>admin page</title>
 
     <!--custom css file link -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body>
     
@@ -16,9 +16,9 @@
         <h3>hi welcome to, <span>Collins Animal Clinic</span></h3>
         <h1>FurEver Fit <span></span></h1>
         <p>this is an admin page</p>
-        <a href="index.php" class="btn">login</a>
-        <a href="register_form.php" class="btn">register</a>
-        <a href="logout.php" class="btn">logout</a>
+        <a href="../index.php" class="btn">login</a>
+        <a href="../register_form.php" class="btn">register</a>
+        <a href="../logout.php" class="btn">logout</a>
     </div>
 
 </div>
