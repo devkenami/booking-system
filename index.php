@@ -24,7 +24,7 @@ if(isset($_POST['submit'])){
         $row = mysqli_fetch_array($selectadmin);
         $_SESSION['id'] = $row ['id'];
         $_SESSION['user_type'] = $row ['user_type'];
-            header('location:admin_page.php');
+            header('location:admin/admin_page.php');
     }else{
         $error[] = "invalid email or password";
     }
