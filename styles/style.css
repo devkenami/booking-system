@@ -2,8 +2,27 @@ p {
     margin: 0 !important;
 }
 
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.text-pink {
+    color: #F25278;
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background-color: #F25278 !important;
+}
+.fa-plus {
+    font-size: 40px;
+}
+
 col {
     padding: 0 !important;
+}
+.btn-pink-color {
+    background-color: #F25278 !important;
+    color: #fff !important;
 }
 .btn-pink {
     background-color: #F25278 !important;
