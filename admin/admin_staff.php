@@ -21,7 +21,7 @@
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto">
                   <li class="nav-item">
-                      <a href="admin_page.php" class="nav-link active" aria-current="page">
+                      <a href="admin_page.php" class="nav-link link-dark" aria-current="page">
                         <i class="fa-solid fa-house-chimney bi pe-none me-2"></i> Home
                       </a>
                   </li>
@@ -46,7 +46,7 @@
                       </a>
                   </li>
                   <li>
-                      <a href="admin_staff.php" class="nav-link link-dark">
+                      <a href="admin_staff.php" class="nav-link active">
                         <i class="fa-solid fa-users"></i> Staff Members
                       </a>
                   </li>
@@ -64,7 +64,26 @@
             </div>
         </div>
         <div class="col-10 p-4">
-            <h1>Welcome back Admin 👋</h1>
+            <h1>Admin Staff 🙎🏼‍♂️</h1>
+            <div class="mb-4 mt-2 w-25 float-end">
+              <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Search staff...">
+            </div>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Staff Name</th>
+                  <th scope="col">Contact No.</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+            <center><p>No staff found.</p></center>
+            <div class="mb-4 mt-2 float-end">
+              <div class="btn btn-pink-color">Add Staff</div>
+            </div>
         </div>
     </div>
 
