@@ -31,3 +31,15 @@ if (isset($_POST['edit_admin_staff'])) {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
+
+if (isset($_POST['delete_admin_staff'])) {
+  $staff_id = $_POST['staff_id'];
+
+  $sql = "DELETE FROM admin_staff_table WHERE id=$staff_id";
+
+    if ($conn->query($sql) === TRUE) {
+        header("Location: ../admin_staff.php");
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
