@@ -95,8 +95,43 @@
                     <td><?php echo $row['staff_name'] ?></td>
                     <td><?php echo $row['staff_contact_no'] ?></td>
                     <td><?php echo $row['staff_email'] ?></td>
-                    <td><div class="btn btn-primary">Edit</div></td>
+                    <td>
+                    <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit_admin_staff<?php echo $row['id']?>"><i class="fa-solid fa-pen-to-square"></i></button>
+                      <button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                    </td>
                   </tr>
+                  <!-- staff edit modal -->
+                  <div class="modal fade" id="edit_admin_staff<?php echo $row['id']?>" tabindex="-1" aria-labelledby="edit_admin_staff" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Admin Staff Form</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="./admin_functions/functions.php" method="POST">
+                          <input type="hidden" name="staff_id" value="<?php echo $row['id']?>">
+                          <div class="modal-body">
+                            <div class="mb-3">
+                              <label for="exampleFormControlInput1" class="form-label">Staff Name</label>
+                              <input type="text" class="form-control" name="staff_name" placeholder="Enter staff name.." value="<?php echo $row['staff_name'] ?>">
+                            </div>
+                            <div class="mb-3">
+                              <label for="exampleFormControlInput1" class="form-label">Contact No.</label>
+                              <input type="text" class="form-control" name="staff_contact_no" placeholder="Enter staff contact no..." value="<?php echo $row['staff_contact_no'] ?>">
+                            </div>
+                            <div class="mb-3">
+                              <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                              <input type="email" class="form-control" name="staff_email" placeholder="Enter staff email..." value="<?php echo $row['staff_email'] ?>">
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" name="edit_admin_staff" class="btn btn-pink-color">Save</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
                 <?php }} else { ?>
                   <tr>
                     <td colspan="4" class="text-center">
@@ -142,7 +177,7 @@
           </form>
         </div>
       </div>
-</div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
