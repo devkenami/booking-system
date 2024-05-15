@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 09, 2024 at 05:11 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Host: localhost
+-- Generation Time: May 15, 2024 at 04:25 PM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -48,6 +48,26 @@ INSERT INTO `admin_form` (`id`, `name`, `email`, `password`, `user_type`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `admin_staff_table`
+--
+
+CREATE TABLE `admin_staff_table` (
+  `id` int(11) NOT NULL,
+  `staff_name` varchar(100) NOT NULL,
+  `staff_contact_no` varchar(100) NOT NULL,
+  `staff_email` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `admin_staff_table`
+--
+
+INSERT INTO `admin_staff_table` (`id`, `staff_name`, `staff_contact_no`, `staff_email`) VALUES
+(4, 'Simps Son', '09723751826', 'simp@gmail.com');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user_form`
 --
 
@@ -67,7 +87,8 @@ INSERT INTO `user_form` (`id`, `name`, `email`, `password`, `user_type`) VALUES
 (1, 'keneth pogi', 'kenethdin16@gmail.com', '3bdae171e077adbc3dca25941e524fc5', 'user'),
 (5, 'sss', 'ken@gmail.com', '76d80224611fc919a5d54f0ff9fba446', 'user'),
 (6, 'bella', 'bella@gmail.com', '76d80224611fc919a5d54f0ff9fba446', 'user'),
-(7, 'camille', 'pasoquincamille@gmail.com', '3bdae171e077adbc3dca25941e524fc5', 'user');
+(7, 'camille', 'pasoquincamille@gmail.com', '3bdae171e077adbc3dca25941e524fc5', 'user'),
+(8, 'John', 'j@gmail.com', 'e807f1fcf82d132f9bb018ca6738a19f', 'user');
 
 --
 -- Indexes for dumped tables
@@ -77,6 +98,12 @@ INSERT INTO `user_form` (`id`, `name`, `email`, `password`, `user_type`) VALUES
 -- Indexes for table `admin_form`
 --
 ALTER TABLE `admin_form`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `admin_staff_table`
+--
+ALTER TABLE `admin_staff_table`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -96,10 +123,16 @@ ALTER TABLE `admin_form`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT for table `admin_staff_table`
+--
+ALTER TABLE `admin_staff_table`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `user_form`
 --
 ALTER TABLE `user_form`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
