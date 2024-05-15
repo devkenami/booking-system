@@ -54,7 +54,7 @@
             <hr>
             <div class="dropdown">
               <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                <img src="../img/profile.jpg" alt="" width="32" height="32" class="rounded-circle me-2">
                 <strong>Admin</strong>
               </a>
               <ul class="dropdown-menu text-small shadow">

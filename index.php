@@ -56,7 +56,7 @@ if(isset($_POST['submit'])){
         <img class="brand-logo" src="./img/logo.jpeg" alt="Logo">
         
         <div class="text-center">
-            <h1 class="mt-3">Animal Life Clinic and Supply</h1>
+            <h1 class="mt-3">Veterinary Clinic name</h1>
             <img class="mt-5 dog" src="./img/dog.png" alt="dog">
         </div>
         </div>
