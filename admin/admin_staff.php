@@ -1,3 +1,9 @@
+<?php
+  include '../config.php';
+  session_start();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,14 +84,65 @@
                 </tr>
               </thead>
               <tbody>
+              <?php
+                  $query = "SELECT * FROM admin_staff_table";
+                  $result = mysqli_query($conn, $query);
+                  $count = mysqli_num_rows($result);
+                  if ($count > 0) { 
+                    while ($row = mysqli_fetch_assoc($result)) {
+                ?>
+                  <tr>
+                    <td><?php echo $row['staff_name'] ?></td>
+                    <td><?php echo $row['staff_contact_no'] ?></td>
+                    <td><?php echo $row['staff_email'] ?></td>
+                    <td><div class="btn btn-primary">Edit</div></td>
+                  </tr>
+                <?php }} else { ?>
+                  <tr>
+                    <td colspan="4" class="text-center">
+                      <h5>No data to show</h5>
+                    </td>
+                  </tr>
+                <?php }; ?>
               </tbody>
             </table>
-            <center><p>No staff found.</p></center>
             <div class="mb-4 mt-2 float-end">
-              <div class="btn btn-pink-color">Add Staff</div>
+              <div class="btn btn-pink-color" data-bs-toggle="modal" data-bs-target="#add_admin_staff">Add Staff</div>
             </div>
         </div>
     </div>
+
+    <!-- add admin_staff modal -->
+    <div class="modal fade" id="add_admin_staff" tabindex="-1" aria-labelledby="add_admin_staff" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Add Admin Staff Form</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form action="./admin_functions/functions.php" method="POST">
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Staff Name</label>
+                <input type="text" class="form-control" name="staff_name" placeholder="Enter staff name..">
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Contact No.</label>
+                <input type="text" class="form-control" name="staff_contact_no" placeholder="Enter staff contact no...">
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                <input type="email" class="form-control" name="staff_email" placeholder="Enter staff email...">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" name="add_admin_staff" class="btn btn-pink-color">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+</div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
