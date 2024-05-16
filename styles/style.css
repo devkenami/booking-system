@@ -7,6 +7,9 @@ ul {
     margin: 0;
     padding: 0;
 }
+.required {
+    color: red;
+}
 .text-pink {
     color: #F25278;
 }

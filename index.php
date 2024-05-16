@@ -17,14 +17,15 @@ if(isset($_POST['submit'])){
 
     if(mysqli_num_rows($select) > 0 ){
         $row = mysqli_fetch_array($select);
-        $_SESSION['id'] = $row ['id'];
-        $_SESSION['user_type'] = $row ['user_type'];
-            header('location:user_page.php');
+        $_SESSION['id'] = $row['id'];
+        $_SESSION['auth'] = true;
+        $_SESSION['user_type'] = $row['user_type'];
+        header('location:user_page.php');
     }else if(mysqli_num_rows($selectadmin) > 0 ){
         $row = mysqli_fetch_array($selectadmin);
-        $_SESSION['id'] = $row ['id'];
-        $_SESSION['user_type'] = $row ['user_type'];
-            header('location:admin/admin_page.php');
+        $_SESSION['id'] = $row['id'];
+        $_SESSION['user_type'] = $row['user_type'];
+        header('location:admin/admin_page.php');
     }else{
         $error[] = "invalid email or password";
     }

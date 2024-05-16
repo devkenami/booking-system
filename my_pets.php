@@ -1,3 +1,8 @@
+<?php 
+  session_start();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,54 +84,57 @@
             <h1 class="modal-title fs-5" id="exampleModalLabel">Add pets form</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
-          <div class="modal-body">
-            <div class="row mb-3">
-              <div class="col">
-                <label for="exampleFormControlInput1" class="form-label">Pet Name</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter your pet name...">
+          <form action="user_functions.php" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="user_id" value="<?php echo $_SESSION['id']; ?>">
+            <div class="modal-body">
+              <div class="row mb-3">
+                <div class="col">
+                  <label for="exampleFormControlInput1" class="form-label">Pet Name<span class="required">*</span></label>
+                  <input type="text" class="form-control" name="user_pet_name" placeholder="Enter your pet name...">
+                </div>
+                <div class="col">
+                  <label for="exampleFormControlInput1" class="form-label">Pet Image<span class="required">*</span></label>
+                  <input type="file" class="form-control" name="user_pet_image">
+                </div>
               </div>
-              <div class="col">
-                <label for="exampleFormControlInput1" class="form-label">Pet Image</label>
-                <input type="file" class="form-control" id="exampleFormControlInput1">
+              <div class="row mb-3">
+                <div class="col">
+                  <label for="exampleFormControlInput1" class="form-label">Age<span class="required">*</span></label>
+                  <input type="number" class="form-control" name="user_pet_age" placeholder="Enter your pet age...">
+                </div>
+                <div class="col">
+                  <label for="exampleFormControlInput1" class="form-label">Weight</label>
+                  <input type="number" class="form-control" name="user_pet_weight" placeholder="Enter your pet weight in kg...">
+                </div>
+                <div class="col">
+                  <label for="exampleFormControlInput1" class="form-label">Height</label>
+                  <input type="number" class="form-control" name="user_pet_height" placeholder="Enter your pet height in cm...">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col">
+                  <label for="inputState" class="form-label">Pet Type<span class="required">*</span></label>
+                  <select id="inputState" class="form-select" name="use_pet_type">
+                    <option selected value="Dog">Dog</option>
+                    <option value="Hamster">Hamster</option>
+                    <option value="Bird">Bird</option>
+                    <option value="Snake">Snake</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <label for="inputState" class="form-label">Gender<span class="required">*</span></label>
+                  <select id="inputState" class="form-select" name="user_pet_gender">
+                    <option selected value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
+                </div>
               </div>
             </div>
-            <div class="row mb-3">
-              <div class="col">
-                <label for="exampleFormControlInput1" class="form-label">Age</label>
-                <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Enter your pet age...">
-              </div>
-              <div class="col">
-                <label for="exampleFormControlInput1" class="form-label">Weight</label>
-                <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Enter your pet weight in kg...">
-              </div>
-              <div class="col">
-                <label for="exampleFormControlInput1" class="form-label">Height</label>
-                <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Enter your pet height in cm...">
-              </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-pink-color" name="add_user_pet">Save</button>
             </div>
-            <div class="row mb-3">
-              <div class="col">
-                <label for="inputState" class="form-label">Pet Type</label>
-                <select id="inputState" class="form-select">
-                  <option selected>Dog</option>
-                  <option>Hamster</option>
-                  <option>Bird</option>
-                  <option>Snake</option>
-                </select>
-              </div>
-              <div class="col">
-                <label for="inputState" class="form-label">Gender</label>
-                <select id="inputState" class="form-select">
-                  <option selected>Male</option>
-                  <option>Female</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-pink-color">Save</button>
-          </div>
+          </form>
         </div>
       </div>
     </div>

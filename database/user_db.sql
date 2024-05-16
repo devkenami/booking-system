@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 15, 2024 at 04:25 PM
+-- Generation Time: May 16, 2024 at 06:51 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -90,6 +90,24 @@ INSERT INTO `user_form` (`id`, `name`, `email`, `password`, `user_type`) VALUES
 (7, 'camille', 'pasoquincamille@gmail.com', '3bdae171e077adbc3dca25941e524fc5', 'user'),
 (8, 'John', 'j@gmail.com', 'e807f1fcf82d132f9bb018ca6738a19f', 'user');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_pets_table`
+--
+
+CREATE TABLE `user_pets_table` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `user_pet_name` varchar(100) NOT NULL,
+  `user_pet_age` int(11) NOT NULL,
+  `user_pet_weight` int(11) NOT NULL,
+  `user_pet_height` int(11) NOT NULL,
+  `use_pet_type` varchar(100) NOT NULL,
+  `user_pet_gender` varchar(10) NOT NULL,
+  `user_pet_image` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Indexes for dumped tables
 --
@@ -113,6 +131,12 @@ ALTER TABLE `user_form`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user_pets_table`
+--
+ALTER TABLE `user_pets_table`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -133,6 +157,12 @@ ALTER TABLE `admin_staff_table`
 --
 ALTER TABLE `user_form`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `user_pets_table`
+--
+ALTER TABLE `user_pets_table`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
