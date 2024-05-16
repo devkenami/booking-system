@@ -1,6 +1,8 @@
 <?php
   include 'config.php';
   session_start();
+
+  $user_id = $_SESSION['id'];
 ?>
 
 
@@ -42,7 +44,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link link-dark">
+                    <a href="user_appointments.php" class="nav-link link-dark">
                     <i class="fa-regular fa-calendar-check bi pe-none me-2"></i> My Appointments
                     </a>
                 </li>
@@ -67,16 +69,57 @@
 
             <form action="user_functions.php" method="POST" class="mt-3">
                 <input type="hidden" name="user_id" value="<?php echo $_SESSION['id']; ?>">
-                <label for="exampleFormControlInput1" class="form-label">Select Date of Appointment<span class="required">*</span></label>
-                <input type="date" name="user_date_appointment" class="form-control" id="datePicker" >
-                <input type="submit" class="btn btn-pink-color mt-2" name="user_book_appointment" value="Book Appointment">
+                <input type="hidden" name="user_name" value="<?php echo $_SESSION['user_name']; ?>">
+
+                <div class="row">
+                    <div class="col">
+                        <label class="form-label">Select Date of Appointment<span class="required">*</span></label>
+                        <input type="date" name="user_date_appointment" class="form-control" id="datePicker" required>
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Select Time of Appointment<span class="required">*</span></label>
+                        <input type="time" name="user_time_appointment" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col">
+                        <label class="form-label">Pet Name<span class="required">*</span></label>
+                        <select class="form-select" name="user_pet_name" id="user_pet_dropdown" required onchange="setPetType()">
+                            <?php
+                                $query = "SELECT * FROM user_pets_table WHERE user_id='$user_id'";
+                                $result = mysqli_query($conn, $query);
+                                $count = mysqli_num_rows($result);
+                                if ($count > 0) { 
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                            ?>
+                                <option value="<?php echo $row['user_pet_name']; ?>,<?php echo $row['user_pet_type']; ?>"><?php echo $row['user_pet_name']; ?></option>
+                            <?php }} ?>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <label class="form-label">Pet Type<span class="required">*</span></label>
+                        <input type="text" name="user_pet_type" class="form-control" disabled id="user_pet_type">
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-pink-color mt-3" name="user_book_appointment" value="Book Appointment">
             </form>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      document.getElementById('datePicker').valueAsDate = new Date();
+        document.getElementById('datePicker').valueAsDate = new Date();
+        setPetType();
+
+        function setPetType() {
+            let val = document.getElementById("user_pet_dropdown").value;
+            let splited_val = val.split(",");
+            let pet_type = splited_val[1];
+
+            // set the pet type as value of pet type input
+            document.getElementById("user_pet_type").value = pet_type;
+        }
     </script>
 </body>
 </html>

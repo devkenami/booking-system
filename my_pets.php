@@ -42,7 +42,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link link-dark">
+                    <a href="user_appointments.php" class="nav-link link-dark">
                     <i class="fa-regular fa-calendar-check bi pe-none me-2"></i> My Appointments
                     </a>
                 </li>
@@ -98,8 +98,8 @@
                     <td><?php echo $row['user_pet_age'] ?></td>
                     <td><?php echo $row['user_pet_weight'] ?></td>
                     <td><?php echo $row['user_pet_height'] ?></td>
-                    <td><?php echo $row['use_pet_type'] ?></td>
-                    <td><?php echo $row['use_pet_gender'] ?></td>
+                    <td><?php echo $row['user_pet_type'] ?></td>
+                    <td><?php echo $row['user_pet_gender'] ?></td>
                     <td>
                     <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit_user_pet<?php echo $row['id']?>"><i class="fa-solid fa-pen-to-square"></i></button>
                       <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_user_pet<?php echo $row['id']?>"><i class="fa-solid fa-trash"></i></button>
@@ -209,7 +209,7 @@
               <div class="row mb-3">
                 <div class="col">
                   <label for="inputState" class="form-label">Pet Type<span class="required">*</span></label>
-                  <select id="inputState" class="form-select" name="use_pet_type">
+                  <select id="inputState" class="form-select" name="user_pet_type">
                     <option selected value="Dog">Dog</option>
                     <option value="Hamster">Hamster</option>
                     <option value="Bird">Bird</option>

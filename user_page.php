@@ -41,7 +41,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="nav-link link-dark">
+                    <a href="user_appointments.php" class="nav-link link-dark">
                     <i class="fa-regular fa-calendar-check bi pe-none me-2"></i> My Appointments
                     </a>
                 </li>
