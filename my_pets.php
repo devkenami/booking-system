@@ -1,4 +1,5 @@
-<?php 
+<?php
+  include 'config.php';
   session_start();
 ?>
 
@@ -72,6 +73,100 @@
                 </button>
               </li>
             </ul>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Pet Name</th>
+                  <th scope="col">Age</th>
+                  <th scope="col">Weight</th>
+                  <th scope="col">Height</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Gender</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              <?php
+                  $query = "SELECT * FROM user_pets_table";
+                  $result = mysqli_query($conn, $query);
+                  $count = mysqli_num_rows($result);
+                  if ($count > 0) { 
+                    while ($row = mysqli_fetch_assoc($result)) {
+                ?>
+                  <tr>
+                    <td><?php echo $row['user_pet_name'] ?></td>
+                    <td><?php echo $row['user_pet_age'] ?></td>
+                    <td><?php echo $row['user_pet_weight'] ?></td>
+                    <td><?php echo $row['user_pet_height'] ?></td>
+                    <td><?php echo $row['use_pet_type'] ?></td>
+                    <td><?php echo $row['use_pet_gender'] ?></td>
+                    <td>
+                    <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit_user_pet<?php echo $row['id']?>"><i class="fa-solid fa-pen-to-square"></i></button>
+                      <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_user_pet<?php echo $row['id']?>"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                  </tr>
+                  <!-- staff edit modal -->
+                  <div class="modal fade" id="edit_admin_staff<?php echo $row['id']?>" tabindex="-1" aria-labelledby="edit_admin_staff" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Admin Staff Form</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="./admin_functions/functions.php" method="POST">
+                          <input type="hidden" name="staff_id" value="<?php echo $row['id']?>">
+                          <div class="modal-body">
+                            <div class="mb-3">
+                              <label for="exampleFormControlInput1" class="form-label">Staff Name</label>
+                              <input type="text" class="form-control" name="staff_name" placeholder="Enter staff name.." value="<?php echo $row['staff_name'] ?>">
+                            </div>
+                            <div class="mb-3">
+                              <label for="exampleFormControlInput1" class="form-label">Contact No.</label>
+                              <input type="text" class="form-control" name="staff_contact_no" placeholder="Enter staff contact no..." value="<?php echo $row['staff_contact_no'] ?>">
+                            </div>
+                            <div class="mb-3">
+                              <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                              <input type="email" class="form-control" name="staff_email" placeholder="Enter staff email..." value="<?php echo $row['staff_email'] ?>">
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" name="edit_admin_staff" class="btn btn-pink-color">Save</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- staff delete modal -->
+                  <div class="modal fade" id="delete_admin_staff<?php echo $row['id']?>" tabindex="-1" aria-labelledby="delete_admin_staff" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Admin Staff Confirmation</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="./admin_functions/functions.php" method="POST">
+                          <input type="hidden" name="staff_id" value="<?php echo $row['id']?>">
+                          <div class="modal-body">
+                            <p>Are you sure you want to remove <b><?php echo $row['staff_name'] ?></b> as Admin Staff?</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" name="delete_admin_staff" class="btn btn-pink-color">Confirm</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                <?php }} else { ?>
+                  <tr>
+                    <td colspan="4" class="text-center">
+                      <h5>No data to show</h5>
+                    </td>
+                  </tr>
+                <?php }; ?>
+              </tbody>
+            </table>
         </div>
     </div>
 

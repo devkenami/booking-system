@@ -1,3 +1,9 @@
+<?php
+  include 'config.php';
+  session_start();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,12 +65,18 @@
             <h1>Book Appointments</h1>
             <p style="max-width: 600px;">Book appointments and schedule your pet care etc...</p>
 
-            <form action="">
-              
+            <form action="user_functions.php" method="POST" class="mt-3">
+                <input type="hidden" name="user_id" value="<?php echo $_SESSION['id']; ?>">
+                <label for="exampleFormControlInput1" class="form-label">Select Date of Appointment<span class="required">*</span></label>
+                <input type="date" name="user_date_appointment" class="form-control" id="datePicker" >
+                <input type="submit" class="btn btn-pink-color mt-2" name="user_book_appointment" value="Book Appointment">
             </form>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.getElementById('datePicker').valueAsDate = new Date();
+    </script>
 </body>
 </html>

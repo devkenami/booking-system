@@ -1,3 +1,8 @@
+<?php
+  include '../config.php';
+  session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,19 +76,42 @@
             <table class="table table-striped">
               <thead>
                 <tr>
+                  <th scope="col">User ID</th>
                   <th scope="col">Date</th>
-                  <th scope="col">Service</th>
-                  <th scope="col">Pet's ID</th>
+                  <th scope="col">Action</th>
+                  <!-- <th scope="col">Service</th> -->
+                  <!-- <th scope="col">Pet's ID</th>
                   <th scope="col">Pet's Name</th>
                   <th scope="col">Pet Owner's Name</th>
                   <th scope="col">Contact No.</th>
-                  <th scope="col">Action</th>
+                  <th scope="col">Action</th> -->
                 </tr>
               </thead>
               <tbody>
+                <?php
+                  $query = "SELECT * FROM user_appointment_table";
+                  $result = mysqli_query($conn, $query);
+                  $count = mysqli_num_rows($result);
+                  if ($count > 0) { 
+                    while ($row = mysqli_fetch_assoc($result)) {
+                ?>
+                  <tr>
+                    <td><?php echo $row['user_id'] ?></td>
+                    <td><?php echo $row['user_date_appointment'] ?></td>
+                    <td>
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#edit_user_pet<?php echo $row['id']?>"><i class="fa-solid fa-check"></i></button>
+                      <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_user_pet<?php echo $row['id']?>"><i class="fa-solid fa-ban"></i></button>
+                    </td>
+                  </tr>
+                <?php }} else { ?>
+                  <tr>
+                    <td colspan="4" class="text-center">
+                      <h5>No data to show</h5>
+                    </td>
+                  </tr>
+                <?php }; ?>
               </tbody>
             </table>
-            <center><p>No appointments found.</p></center>
         </div>
     </div>
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 16, 2024 at 06:51 AM
+-- Generation Time: May 16, 2024 at 09:13 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -68,6 +68,25 @@ INSERT INTO `admin_staff_table` (`id`, `staff_name`, `staff_contact_no`, `staff_
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `user_appointment_table`
+--
+
+CREATE TABLE `user_appointment_table` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `user_date_appointment` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_appointment_table`
+--
+
+INSERT INTO `user_appointment_table` (`id`, `user_id`, `user_date_appointment`) VALUES
+(1, 8, '2024-05-16');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user_form`
 --
 
@@ -109,6 +128,13 @@ CREATE TABLE `user_pets_table` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `user_pets_table`
+--
+
+INSERT INTO `user_pets_table` (`id`, `user_id`, `user_pet_name`, `user_pet_age`, `user_pet_weight`, `user_pet_height`, `use_pet_type`, `user_pet_gender`, `user_pet_image`) VALUES
+(7, 8, 'asd', 1, 1, 1, 'Dog', 'Male', '1715840090.png');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -122,6 +148,12 @@ ALTER TABLE `admin_form`
 -- Indexes for table `admin_staff_table`
 --
 ALTER TABLE `admin_staff_table`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user_appointment_table`
+--
+ALTER TABLE `user_appointment_table`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -153,6 +185,12 @@ ALTER TABLE `admin_staff_table`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `user_appointment_table`
+--
+ALTER TABLE `user_appointment_table`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `user_form`
 --
 ALTER TABLE `user_form`
@@ -162,7 +200,7 @@ ALTER TABLE `user_form`
 -- AUTO_INCREMENT for table `user_pets_table`
 --
 ALTER TABLE `user_pets_table`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
