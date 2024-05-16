@@ -1,3 +1,8 @@
+<?php
+  include 'config.php';
+  session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,7 +50,7 @@
                 <div class="dropdown">
                 <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="./img/profile.jpg" alt="" width="32" height="32" class="rounded-circle me-2">
-                    <strong>user</strong>
+                    <strong><?php echo $_SESSION['user_name']; ?></strong>
                 </a>
                 <ul class="dropdown-menu text-small shadow">
                     <li><a class="dropdown-item" href="#">Edit Profile</a></li>

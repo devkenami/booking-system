@@ -1,7 +1,6 @@
 <?php
 
 @include 'config.php';
-
 session_start();
 
 if(isset($_POST['submit'])){
@@ -19,6 +18,7 @@ if(isset($_POST['submit'])){
         $row = mysqli_fetch_array($select);
         $_SESSION['id'] = $row['id'];
         $_SESSION['auth'] = true;
+        $_SESSION['user_name'] = $row['name'];
         $_SESSION['user_type'] = $row['user_type'];
         header('location:user_page.php');
     }else if(mysqli_num_rows($selectadmin) > 0 ){
