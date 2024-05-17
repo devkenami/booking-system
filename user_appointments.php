@@ -1,6 +1,8 @@
 <?php
   include 'config.php';
   session_start();
+
+  $user_id = $_SESSION['id'];
 ?>
 
 
@@ -79,7 +81,7 @@
               </thead>
               <tbody>
                 <?php
-                  $query = "SELECT * FROM user_appointment_table";
+                  $query = "SELECT * FROM user_appointment_table WHERE user_id=$user_id";
                   $result = mysqli_query($conn, $query);
                   $count = mysqli_num_rows($result);
                   if ($count > 0) { 
