@@ -76,6 +76,7 @@
             <table class="table table-striped">
               <thead>
                 <tr>
+                <th scope="col">Image</th>
                   <th scope="col">Pet Name</th>
                   <th scope="col">Age</th>
                   <th scope="col">Weight</th>
@@ -94,6 +95,7 @@
                     while ($row = mysqli_fetch_assoc($result)) {
                 ?>
                   <tr>
+                    <td><img width="32" height="32" class="rounded-circle me-2" src="./user_pets_image/<?php echo $row['user_pet_image'] ?>" alt=""></td>
                     <td><?php echo $row['user_pet_name'] ?></td>
                     <td><?php echo $row['user_pet_age'] ?></td>
                     <td><?php echo $row['user_pet_weight'] ?></td>
