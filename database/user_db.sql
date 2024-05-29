@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 29, 2024 at 02:20 AM
+-- Generation Time: May 29, 2024 at 06:55 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -63,7 +63,7 @@ CREATE TABLE `admin_staff_table` (
 --
 
 INSERT INTO `admin_staff_table` (`id`, `staff_name`, `staff_contact_no`, `staff_email`) VALUES
-(7, 'Simps Son', '09723751826', 'simp@gmail.com'),
+(7, 'archieve', '09723751826', 'simp@gmail.com'),
 (8, 'John Wick', '09723751828', 'john@gmail.com');
 
 -- --------------------------------------------------------
@@ -77,7 +77,7 @@ CREATE TABLE `user` (
   `user_type_id` int(11) DEFAULT NULL,
   `user_username` varchar(25) NOT NULL,
   `user_password` varchar(255) DEFAULT NULL,
-  `user_account_status` int(11) DEFAULT NULL,
+  `user_account_status` varchar(100) DEFAULT NULL,
   `user_security_key` text DEFAULT NULL,
   `user_security_key_expiry` text DEFAULT NULL,
   `user_ip_address` text DEFAULT NULL,
@@ -100,7 +100,13 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`user_id`, `user_type_id`, `user_username`, `user_password`, `user_account_status`, `user_security_key`, `user_security_key_expiry`, `user_ip_address`, `user_host_name`, `user_php_self`, `user_server_name`, `user_http_host`, `user_http_refferer`, `user_http_user_agent`, `user_script_name`, `user_created_at`, `user_updated_at`, `user_login_date_at`, `user_logout_date_at`) VALUES
 (1, 1, 'kenethbryan234@gmail.com', '3bdae171e077adbc3dca25941e524fc5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-29 07:38:54', NULL, NULL, NULL),
-(2, 4, 'j@gmail.com', 'e807f1fcf82d132f9bb018ca6738a19f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-29 08:13:00', NULL, NULL, NULL);
+(2, 4, 'j@gmail.com', 'e807f1fcf82d132f9bb018ca6738a19f', 'not active', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-29 08:13:00', NULL, NULL, NULL),
+(3, 2, 'simp@gmail.com', 'e807f1fcf82d132f9bb018ca6738a19f', 'not active', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-29 22:36:28', NULL, NULL, NULL),
+(4, 2, 'w@gmail.com', '1234567890', 'not active', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-29 23:57:58', NULL, NULL, NULL),
+(5, 2, 'q@gmail.com', 'q', 'active', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-30 00:03:29', NULL, NULL, NULL),
+(6, 4, 'a@gmail.com', 'a', 'active', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-30 00:45:59', NULL, NULL, NULL),
+(7, 4, 'e@gamil.com', 'e', 'active', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-30 00:50:52', NULL, NULL, NULL),
+(8, 2, 'd@gmail.com', 'd', 'not active', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-30 00:52:08', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -190,7 +196,7 @@ CREATE TABLE `user_profile` (
   `user_profile_first_name` text DEFAULT NULL,
   `user_profile_last_name` text DEFAULT NULL,
   `user_profile_middle_name` text DEFAULT NULL,
-  `user_profile_dob` date DEFAULT NULL,
+  `user_profile_dob` varchar(100) DEFAULT NULL,
   `user_profile_email_address` varchar(100) DEFAULT NULL,
   `user_profile_contact_no` text DEFAULT NULL,
   `user_profile_photo` text DEFAULT NULL,
@@ -204,7 +210,13 @@ CREATE TABLE `user_profile` (
 
 INSERT INTO `user_profile` (`user_profile_id`, `user_id`, `user_profile_first_name`, `user_profile_last_name`, `user_profile_middle_name`, `user_profile_dob`, `user_profile_email_address`, `user_profile_contact_no`, `user_profile_photo`, `user_profile_created_at`, `user_profile_updated_at`) VALUES
 (1, 1, 'Ken', 'Chan', 'jackie', NULL, 'kenethbryan234@gmail.com', 'N/A', NULL, '2024-05-29 07:42:24', NULL),
-(2, 2, 'John', 'Wick', 'Babayaga', NULL, 'j@gmail.com', '09876543212', NULL, '2024-05-29 08:15:49', NULL);
+(2, NULL, 'Johnn', 'Wick', 'Babayaga', NULL, 'j@gmail.com', '09876543212', NULL, '2024-05-29 08:15:49', '2024-05-29 18:42:42'),
+(3, NULL, 'Simpp', 'Son', 'Po', NULL, 'simp@gmail.com', '09723751826', NULL, '2024-05-29 22:41:24', '2024-05-29 18:27:02'),
+(4, NULL, 'q', 'e', 'w', '2024-05-09', 'w@gmail.com', '09876543211', NULL, '2024-05-29 23:57:58', NULL),
+(5, NULL, 'qwerty', 'q', 'q', '2024-05-10', 'q@gmail.com', '09876543211', NULL, '2024-05-30 00:03:29', '2024-05-29 18:27:33'),
+(6, NULL, 'aa', 'a', 'a', '2024-04-28', 'a@gmail.com', '09876543212', NULL, '2024-05-30 00:45:59', '2024-05-29 18:50:18'),
+(7, NULL, 'e', 'e', 'eeeeee', '2024-05-15', 'e@gamil.com', '09876543212', NULL, '2024-05-30 00:50:52', '2024-05-29 18:50:58'),
+(8, NULL, 'd', 'dddddd', 'd', '2024-05-07', 'd@gmail.com', '09876543211', NULL, '2024-05-30 00:52:08', '2024-05-29 18:52:13');
 
 -- --------------------------------------------------------
 
@@ -302,7 +314,7 @@ ALTER TABLE `admin_staff_table`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user_appointment_table`
@@ -326,7 +338,7 @@ ALTER TABLE `user_pets_table`
 -- AUTO_INCREMENT for table `user_profile`
 --
 ALTER TABLE `user_profile`
-  MODIFY `user_profile_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `user_profile_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `user_type`
