@@ -1,3 +1,9 @@
+<?php
+include '../config.php';
+session_start();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -126,9 +132,43 @@
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid p-4">
+                    <?php
+                        $query = "SELECT * FROM user_appointment_table";
+                        $query1 = "SELECT * FROM user_appointment_table WHERE appointment_status = 'declined'";
+                        $query2 = "SELECT * FROM user_appointment_table WHERE appointment_status = 'accepted'";
+                        $query3 = "SELECT * FROM user_appointment_table WHERE appointment_status = 'waiting'";
+                        $result = mysqli_query($conn, $query);
+                        $result1 = mysqli_query($conn, $query1);
+                        $result2 = mysqli_query($conn, $query2);
+                        $result3 = mysqli_query($conn, $query3);
+                        $count = mysqli_num_rows($result);
+                        $count1 = mysqli_num_rows($result1);
+                        $count2 = mysqli_num_rows($result2);
+                        $count3 = mysqli_num_rows($result3);
+                    ?>
                     <h1>Welcome Back Admin 👋</h1>
-                    <!-- Tables -->
-                    <h5 class="mb-2">
+                    <div class="row mt-4">
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <div class="info-box"> <span class="info-box-icon text-bg-primary shadow-sm"> <i class="fa-solid fa-calendar"></i> </span>
+                                <div class="info-box-content"> <span class="info-box-text">Total Appointments</span> <span class="info-box-number"><?php echo $count ?></span></div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <div class="info-box"> <span class="info-box-icon text-bg-danger shadow-sm"> <i class="fa-solid fa-trash"></i></span>
+                                <div class="info-box-content"> <span class="info-box-text">Declined Appointments</span> <span class="info-box-number"><?php echo $count1 ?></span></div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <div class="info-box"> <span class="info-box-icon text-bg-success shadow-sm"> <i class="fa-solid fa-calendar-check"></i></span>
+                                <div class="info-box-content"> <span class="info-box-text">Accepted Appointments</span> <span class="info-box-number"><?php echo $count2 ?></span></div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-3">
+                            <div class="info-box"> <span class="info-box-icon text-bg-warning shadow-sm"> <i class="fa-solid fa-hourglass-start"></i></span>
+                                <div class="info-box-content"> <span class="info-box-text">Waiting Approval Appointments</span> <span class="info-box-number"><?php echo $count3 ?></span></div>
+                            </div>
+                        </div> 
+                    </div>
             </section>
             <!-- /.content -->
         </div>
