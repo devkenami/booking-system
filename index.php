@@ -35,7 +35,7 @@ if(isset($_POST['submit'])){
     if(mysqli_num_rows($select_user) > 0) {
         $row = mysqli_fetch_array($select_user);
         $user_type_id = $row['user_type_id'];
-        $_SESSION['user_name'] = $row['name'];
+        $_SESSION['user_name'] = $row['user_username'];
         $_SESSION['user_id'] = $row['user_id'];
         $_SESSION['user_type_id'] = $row['user_type_id'];
         if($user_type_id == "1") {
