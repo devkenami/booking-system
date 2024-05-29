@@ -1,6 +1,8 @@
 <?php
   include 'config.php';
   session_start();
+
+  $user_id = $_SESSION['id'];
 ?>
 
 
@@ -69,7 +71,7 @@
               <li>
                 <button type="button" class="btn btn-light p-4 text-pink" data-bs-toggle="modal" data-bs-target="#exampleModal">
                   <i class="fa-solid fa-plus"></i> <br>
-                  Add pets
+                  
                 </button>
               </li>
             </ul>
@@ -88,7 +90,7 @@
               </thead>
               <tbody>
               <?php
-                  $query = "SELECT * FROM user_pets_table";
+                  $query = "SELECT * FROM user_pets_table WHERE user_id=$user_id";
                   $result = mysqli_query($conn, $query);
                   $count = mysqli_num_rows($result);
                   if ($count > 0) { 
@@ -112,7 +114,7 @@
                     <div class="modal-dialog modal-lg">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Admin Staff Form</h1>
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Staff</h1>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <form action="./admin_functions/functions.php" method="POST">
@@ -178,7 +180,7 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Add pets form</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Pet info</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <form action="user_functions.php" method="POST" enctype="multipart/form-data">

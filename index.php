@@ -11,22 +11,41 @@ if(isset($_POST['submit'])){
     // $cpass = md5($_POST['cpassword']);
     // $user_type = $_POST['user_type'];
 
-    $select =  mysqli_query($conn, " SELECT * FROM user_form WHERE `email` = '$email' && `password` = '$pass' limit 0,1");
-    $selectadmin =  mysqli_query($conn, " SELECT * FROM admin_form WHERE `email` = '$email' && `password` = '$pass' limit 0,1");
+    // $select =  mysqli_query($conn, " SELECT * FROM user_form WHERE `email` = '$email' && `password` = '$pass' limit 0,1");
+    // $selectadmin =  mysqli_query($conn, " SELECT * FROM admin_form WHERE `email` = '$email' && `password` = '$pass' limit 0,1");
 
-    if(mysqli_num_rows($select) > 0 ){
-        $row = mysqli_fetch_array($select);
-        $_SESSION['id'] = $row['id'];
-        $_SESSION['auth'] = true;
-        $_SESSION['user_name'] = $row['name'];
-        $_SESSION['user_type'] = $row['user_type'];
-        header('location:user_page.php');
-    }else if(mysqli_num_rows($selectadmin) > 0 ){
-        $row = mysqli_fetch_array($selectadmin);
-        $_SESSION['id'] = $row['id'];
-        $_SESSION['user_type'] = $row['user_type'];
-        header('location:admin/admin_page.php');
-    }else{
+    $select_user =  mysqli_query($conn, " SELECT * FROM user WHERE `user_username` = '$email' && `user_password` = '$pass' limit 0,1");
+
+    // if(mysqli_num_rows($select) > 0 ){
+    //     $row = mysqli_fetch_array($select);
+    //     $_SESSION['id'] = $row['id'];
+    //     $_SESSION['auth'] = true;
+    //     $_SESSION['user_name'] = $row['name'];
+    //     $_SESSION['user_type'] = $row['user_type'];
+    //     header('location:user_page.php');
+    // }else if(mysqli_num_rows($selectadmin) > 0 ){
+    //     $row = mysqli_fetch_array($selectadmin);
+    //     $_SESSION['id'] = $row['id'];
+    //     $_SESSION['user_type'] = $row['user_type'];
+    //     header('location:admin/admin_page.php');
+    // }else{
+    //     $error[] = "invalid email or password";
+    // }
+
+    if(mysqli_num_rows($select_user) > 0) {
+        $row = mysqli_fetch_array($select_user);
+        $user_type_id = $row['user_type_id'];
+        $_SESSION['user_id'] = $row['user_id'];
+        $_SESSION['user_type_id'] = $row['user_type_id'];
+        if($user_type_id == "1") {
+            // admin
+            header('location:admin/admin_page.php');
+        } else if ($user_type_id == "4") {
+            // customer
+            header('location:user_page.php');
+        }
+
+    } else {
         $error[] = "invalid email or password";
     }
 
@@ -57,7 +76,7 @@ if(isset($_POST['submit'])){
         <img class="brand-logo" src="./img/logo.jpeg" alt="Logo">
         
         <div class="text-center">
-            <h1 class="mt-3">Veterinary Clinic name</h1>
+            <h1 class="mt-3">Animal Life Clinic and Supply</h1>
             <img class="mt-5 dog" src="./img/dog.png" alt="dog">
         </div>
         </div>

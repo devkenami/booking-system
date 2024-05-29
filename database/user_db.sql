@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 16, 2024 at 08:00 PM
+-- Generation Time: May 29, 2024 at 02:20 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -65,6 +65,42 @@ CREATE TABLE `admin_staff_table` (
 INSERT INTO `admin_staff_table` (`id`, `staff_name`, `staff_contact_no`, `staff_email`) VALUES
 (7, 'Simps Son', '09723751826', 'simp@gmail.com'),
 (8, 'John Wick', '09723751828', 'john@gmail.com');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `user_id` int(11) NOT NULL,
+  `user_type_id` int(11) DEFAULT NULL,
+  `user_username` varchar(25) NOT NULL,
+  `user_password` varchar(255) DEFAULT NULL,
+  `user_account_status` int(11) DEFAULT NULL,
+  `user_security_key` text DEFAULT NULL,
+  `user_security_key_expiry` text DEFAULT NULL,
+  `user_ip_address` text DEFAULT NULL,
+  `user_host_name` text DEFAULT NULL,
+  `user_php_self` text DEFAULT NULL,
+  `user_server_name` text DEFAULT NULL,
+  `user_http_host` text DEFAULT NULL,
+  `user_http_refferer` text DEFAULT NULL,
+  `user_http_user_agent` text DEFAULT NULL,
+  `user_script_name` text DEFAULT NULL,
+  `user_created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `user_updated_at` datetime DEFAULT NULL,
+  `user_login_date_at` datetime DEFAULT NULL,
+  `user_logout_date_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`user_id`, `user_type_id`, `user_username`, `user_password`, `user_account_status`, `user_security_key`, `user_security_key_expiry`, `user_ip_address`, `user_host_name`, `user_php_self`, `user_server_name`, `user_http_host`, `user_http_refferer`, `user_http_user_agent`, `user_script_name`, `user_created_at`, `user_updated_at`, `user_login_date_at`, `user_logout_date_at`) VALUES
+(1, 1, 'kenethbryan234@gmail.com', '3bdae171e077adbc3dca25941e524fc5', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-29 07:38:54', NULL, NULL, NULL),
+(2, 4, 'j@gmail.com', 'e807f1fcf82d132f9bb018ca6738a19f', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2024-05-29 08:13:00', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -140,8 +176,59 @@ CREATE TABLE `user_pets_table` (
 --
 
 INSERT INTO `user_pets_table` (`id`, `user_id`, `user_pet_name`, `user_pet_age`, `user_pet_weight`, `user_pet_height`, `user_pet_type`, `user_pet_gender`, `user_pet_image`) VALUES
-(7, 8, 'Caspin', 1, 2, 2, 'Dog', 'Male', '1715840090.png'),
-(8, 8, 'Aspin', 3, 2, 2, 'Dog', 'Female', '1715877565.png');
+(11, 1, 'Aspin', 1, 1, 1, 'Dog', 'Male', '1715914157.png');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_profile`
+--
+
+CREATE TABLE `user_profile` (
+  `user_profile_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `user_profile_first_name` text DEFAULT NULL,
+  `user_profile_last_name` text DEFAULT NULL,
+  `user_profile_middle_name` text DEFAULT NULL,
+  `user_profile_dob` date DEFAULT NULL,
+  `user_profile_email_address` varchar(100) DEFAULT NULL,
+  `user_profile_contact_no` text DEFAULT NULL,
+  `user_profile_photo` text DEFAULT NULL,
+  `user_profile_created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `user_profile_updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_profile`
+--
+
+INSERT INTO `user_profile` (`user_profile_id`, `user_id`, `user_profile_first_name`, `user_profile_last_name`, `user_profile_middle_name`, `user_profile_dob`, `user_profile_email_address`, `user_profile_contact_no`, `user_profile_photo`, `user_profile_created_at`, `user_profile_updated_at`) VALUES
+(1, 1, 'Ken', 'Chan', 'jackie', NULL, 'kenethbryan234@gmail.com', 'N/A', NULL, '2024-05-29 07:42:24', NULL),
+(2, 2, 'John', 'Wick', 'Babayaga', NULL, 'j@gmail.com', '09876543212', NULL, '2024-05-29 08:15:49', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_type`
+--
+
+CREATE TABLE `user_type` (
+  `user_type_id` int(11) NOT NULL,
+  `user_type_account_name` text NOT NULL,
+  `user_type_description` mediumtext NOT NULL,
+  `user_created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `user_updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_type`
+--
+
+INSERT INTO `user_type` (`user_type_id`, `user_type_account_name`, `user_type_description`, `user_created_at`, `user_updated_at`) VALUES
+(1, 'Admin', 'User that can manage and has authorization on all functions', '2024-05-29 07:23:34', NULL),
+(2, 'Employee', 'User that can manage minimum task on the system', '2024-05-29 07:23:34', NULL),
+(3, 'Veterinary', 'Doctors on systems', '2024-05-29 07:24:39', NULL),
+(4, 'Customers', 'Consumer on system', '2024-05-29 07:24:39', NULL);
 
 --
 -- Indexes for dumped tables
@@ -158,6 +245,12 @@ ALTER TABLE `admin_form`
 --
 ALTER TABLE `admin_staff_table`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`user_id`);
 
 --
 -- Indexes for table `user_appointment_table`
@@ -178,6 +271,18 @@ ALTER TABLE `user_pets_table`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user_profile`
+--
+ALTER TABLE `user_profile`
+  ADD PRIMARY KEY (`user_profile_id`);
+
+--
+-- Indexes for table `user_type`
+--
+ALTER TABLE `user_type`
+  ADD PRIMARY KEY (`user_type_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -192,6 +297,12 @@ ALTER TABLE `admin_form`
 --
 ALTER TABLE `admin_staff_table`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user_appointment_table`
@@ -209,7 +320,19 @@ ALTER TABLE `user_form`
 -- AUTO_INCREMENT for table `user_pets_table`
 --
 ALTER TABLE `user_pets_table`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `user_profile`
+--
+ALTER TABLE `user_profile`
+  MODIFY `user_profile_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `user_type`
+--
+ALTER TABLE `user_type`
+  MODIFY `user_type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

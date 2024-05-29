@@ -2,7 +2,7 @@
 
 include '../../config.php';
 session_start();
-// admin stuff
+// admin staff
 if (isset($_POST['add_admin_staff'])) {
   $staff_name = $_POST['staff_name'];
   $staff_contact_no = $_POST['staff_contact_no'];
