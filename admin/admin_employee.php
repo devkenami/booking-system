@@ -134,7 +134,7 @@ session_start();
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid p-4">
-                    <h1>Admin Employee</h1>
+                    <h1>Admin Employee List</h1>
                     <div class="card">
                         <div class="card-body">
                             <table class="table table-striped">
@@ -152,16 +152,16 @@ session_start();
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $query = "SELECT * FROM user WHERE user_type_id = 2";
+                                    $query = "SELECT * FROM user WHERE user_type_id = 2 AND user_account_status = 'active'";
                                     $result = mysqli_query($conn, $query);
 
                                     $count = mysqli_num_rows($result);
                                     if ($count > 0) {
                                         while ($row = mysqli_fetch_assoc($result)) {
                                           $id = $row['user_id'];
-                                          $query = "SELECT * FROM user_profile WHERE user_id = $id";
-                                          $result = mysqli_query($conn, $query);
-                                          while ($row2 = mysqli_fetch_assoc($result)) {
+                                          $query2 = "SELECT * FROM user_profile WHERE user_profile_id = $id";
+                                          $result2 = mysqli_query($conn, $query2);
+                                          while ($row2 = mysqli_fetch_assoc($result2)) {
                                     ?>
                                     <tr>
                                         <td><?php echo $row2['user_profile_first_name'] ?></td>
@@ -181,7 +181,7 @@ session_start();
                                       <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                           <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Admin Staff Confirmation</h1>
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Archieve Admin Employee Confirmation</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                           </div>
                                           <form action="./admin_functions/functions.php" method="POST">
@@ -197,10 +197,51 @@ session_start();
                                         </div>
                                       </div>
                                     </div>
-                                    <?php } }
+                                    <!-- employee edit modal -->
+                                    <div class="modal fade" id="edit_admin_employee<?php echo $row2['user_id']?>" tabindex="-1" aria-labelledby="edit_admin_employee" aria-hidden="true">
+                                      <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Admin Employee</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <form action="./admin_functions/functions.php" method="POST">
+                                            <input type="hidden" name="employee_id" value="<?php echo $row2['user_id']?>">
+                                            <div class="modal-body">
+                                              <div class="mb-3">
+                                                <label class="form-label">First Name</label>
+                                                <input type="text" class="form-control" name="employee_first_name" placeholder="Enter employee first name..." value="<?php echo $row2['user_profile_first_name'] ?>">
+                                              </div>
+                                              <div class="mb-3">
+                                                <label class="form-label">Middle Name</label>
+                                                <input type="text" class="form-control" name="employee_middle_name" placeholder="Enter employee middle name..." value="<?php echo $row2['user_profile_middle_name'] ?>">
+                                              </div>
+                                              <div class="mb-3">
+                                                <label class="form-label">Last Name</label>
+                                                <input type="text" class="form-control" name="employee_last_name" placeholder="Enter employee last name..." value="<?php echo $row2['user_profile_last_name'] ?>">
+                                              </div>
+                                              <div class="mb-3">
+                                                <label class="form-label">Email address</label>
+                                                <input type="email" class="form-control" name="employee_email" placeholder="Enter employee email..." value="<?php echo $row2['user_profile_email_address'] ?>">
+                                              </div>
+                                              <div class="mb-3">
+                                                <label class="form-label">Contact No.</label>
+                                                <input type="text" class="form-control" name="employee_contact_no" placeholder="Enter employee contact no..." value="<?php echo $row2['user_profile_contact_no'] ?>">
+                                              </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                              <button type="submit" name="edit_admin_employee" class="btn btn-pink-color">Save</button>
+                                            </div>
+                                          </form>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <?php } 
+                                    }
                                     } else { ?>
                                     <tr>
-                                        <td colspan="4" class="text-center">
+                                        <td colspan="8" class="text-center">
                                             <h5>No data to show</h5>
                                         </td>
                                     </tr>
@@ -210,13 +251,141 @@ session_start();
                         </div>
                     </div>
                     <div class="mb-4 mt-2 float-end">
-                        <button data-bs-toggle="modal" class="btn btn-pink-color">+</button>
+                        <button data-bs-toggle="modal" data-bs-target="#add_admin_employee" class="btn btn-pink-color">+</button>
+                    </div>
+                    <h1 class="mt-5">Admin Employee (Not Active) List</h1>
+                    <div class="card">
+                      <div class="card-body">
+                          <table class="table table-striped">
+                              <thead>
+                                  <tr>
+                                      <th scope="col">First Name</th>
+                                      <th scope="col">Middle Name</th>
+                                      <th scope="col">Last Name</th>
+                                      <th scope="col">Email Address</th>
+                                      <th scope="col">Contact No.</th>
+                                      <th scope="col">Created At</th>
+                                      <th scope="col">Updated At</th>
+                                      <th scope="col">Action</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <?php
+                                  $query = "SELECT * FROM user WHERE user_type_id = 2 AND user_account_status = 'not active'";
+                                  $result = mysqli_query($conn, $query);
+
+                                  $count = mysqli_num_rows($result);
+                                  if ($count > 0) {
+                                      while ($row = mysqli_fetch_assoc($result)) {
+                                        $id = $row['user_id'];
+                                        $query2 = "SELECT * FROM user_profile WHERE user_profile_id = $id";
+                                        $result2 = mysqli_query($conn, $query2);
+                                        while ($row2 = mysqli_fetch_assoc($result2)) {
+                                  ?>
+                                  <tr>
+                                      <td><?php echo $row2['user_profile_first_name'] ?></td>
+                                      <td><?php echo $row2['user_profile_middle_name'] ?></td>
+                                      <td><?php echo $row2['user_profile_last_name'] ?></td>
+                                      <td><?php echo $row2['user_profile_email_address'] ?></td>
+                                      <td><?php echo $row2['user_profile_contact_no'] ?></td>
+                                      <td><?php echo $row2['user_profile_created_at'] ?></td>
+                                      <td><?php echo $row2['user_profile_updated_at'] ?></td>
+                                      <td>
+                                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit_admin_employee<?php echo $row2['user_id']?>"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_admin_employee<?php echo $row2['user_id']?>"><i class="fa-solid fa-box-archive"></i></button>
+                                      </td>
+                                  </tr>
+                                  <!-- employee delete modal -->
+                                  <div class="modal fade" id="delete_admin_employee<?php echo $row2['user_id']?>" tabindex="-1" aria-labelledby="delete_admin_employee" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h1 class="modal-title fs-5" id="exampleModalLabel">Archieve Admin Employee Confirmation</h1>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form action="./admin_functions/functions.php" method="POST">
+                                          <input type="hidden" name="employee_id" value="<?php echo $row2['user_id']?>">
+                                          <div class="modal-body">
+                                            <p>Are you sure you want to archieve <b><?php echo $row2['user_profile_first_name'] . " " . $row2['user_profile_last_name']?></b> as Admin Employee?</p>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" name="delete_admin_employee" class="btn btn-pink-color">Confirm</button>
+                                          </div>
+                                        </form>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <?php } 
+                                  }
+                                  } else { ?>
+                                  <tr>
+                                      <td colspan="8" class="text-center">
+                                          <h5>No data to show</h5>
+                                      </td>
+                                  </tr>
+                                  <?php }; ?>
+                              </tbody>
+                          </table>
+                      </div>
                     </div>
                 </div>
             </section>
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
+
+         <!-- add admin employee modal -->
+         <div class="modal fade" id="add_admin_employee" tabindex="-1" aria-labelledby="add_admin_employee" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add Admin Employee</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form action="./admin_functions/functions.php" method="POST">
+                <div class="modal-body">
+                  <div class="mb-3">
+                    <label class="form-label">User Name/Email</label>
+                    <input type="email" class="form-control" name="employee_username" placeholder="Enter employee username..">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="text" class="form-control" name="employee_password" placeholder="Enter employee password...">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">First Name</label>
+                    <input type="text" class="form-control" name="employee_first_name" placeholder="Enter employee first name...">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Middle Name</label>
+                    <input type="text" class="form-control" name="employee_middle_name" placeholder="Enter employee middle name...">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" class="form-control" name="employee_last_name" placeholder="Enter employee last name...">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Date of Birthday</label>
+                    <input type="date" class="form-control" name="employee_dob">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Email address</label>
+                    <input type="email" class="form-control" name="employee_email" placeholder="Enter employee email...">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Contact No.</label>
+                    <input type="text" class="form-control" name="employee_contact_no" placeholder="Enter employee contact no...">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" name="add_admin_employee" class="btn btn-pink-color">Save</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
 
         <!-- Main Footer -->
         <footer class="main-footer">
