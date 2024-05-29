@@ -1,3 +1,8 @@
+<?php
+include '../config.php';
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +12,7 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <!-- Bootstrap 4 -->
+    <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- AdminLTE CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/css/adminlte.min.css">
@@ -44,10 +49,10 @@
                     </div>
                 </div>
                 <!-- Sidebar Menu -->
-                    <nav class="mt-2">
+                <nav class="mt-2">
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                             <li class="nav-item">
-                                <a href="admin_page.php" class="nav-link active">
+                                <a href="admin_page.php" class="nav-link">
                                     <i class="nav-icon fas fa-home"></i>
                                     <p>Dashboard</p>
                                 </a>
@@ -86,7 +91,7 @@
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="admin_user.php" class="nav-link">
+                                        <a href="admin_user.php" class="nav-link active">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Admin</p>
                                         </a>
@@ -97,7 +102,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="admin_staff.php" class="nav-link">
+                                        <a href="#nurses" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Employee</p>
                                         </a>
@@ -118,6 +123,9 @@
                             </li>
                         </ul>
                     </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
@@ -125,9 +133,51 @@
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid p-4">
-                    <h1>Welcome Back Admin 👋</h1>
-                    <!-- Tables -->
-                    <h5 class="mb-2">
+                    <h1>Admin List</h1>
+                    <div class="card">
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">First Name</th>
+                                        <th scope="col">Middle Name</th>
+                                        <th scope="col">Last Name</th>
+                                        <th scope="col">Email Address</th>
+                                        <th scope="col">Contact No.</th>
+                                        <th scope="col">Created At</th>
+                                        <th scope="col">Updated At</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $query = "SELECT * FROM user_profile WHERE user_id=1";
+                                    $result = mysqli_query($conn, $query);
+                                    $count = mysqli_num_rows($result);
+                                    if ($count > 0) {
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $row['user_profile_first_name'] ?></td>
+                                        <td><?php echo $row['user_profile_middle_name'] ?></td>
+                                        <td><?php echo $row['user_profile_last_name'] ?></td>
+                                        <td><?php echo $row['user_profile_email_address'] ?></td>
+                                        <td><?php echo $row['user_profile_contact_no'] ?></td>
+                                        <td><?php echo $row['user_profile_created_at'] ?></td>
+                                        <td><?php echo $row['user_profile_updated_at'] ?></td>
+                                    </tr>
+                                    <?php }
+                                    } else { ?>
+                                    <tr>
+                                        <td colspan="4" class="text-center">
+                                            <h5>No data to show</h5>
+                                        </td>
+                                    </tr>
+                                    <?php }; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </section>
             <!-- /.content -->
         </div>
@@ -135,7 +185,7 @@
 
         <!-- Main Footer -->
         <footer class="main-footer">
-            <strong>Copyright &copy; 2024 <a href="#">FurEver Fit</a>.</strong>
+            <strong>&copy; 2024 <a href="#">FurEver Fit</a>.</strong>
             All rights reserved.
         </footer>
     </div>
@@ -143,9 +193,12 @@
 
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <!-- Bootstrap 4 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap 5 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/js/adminlte.min.js"></script>
+    <script>
+        document.getElementById('datePicker').valueAsDate = new Date();
+    </script>
 </body>
 </html>
