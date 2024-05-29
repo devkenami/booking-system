@@ -61,6 +61,67 @@ if (isset($_POST['delete_admin_employee'])) {
     }
 }
 
+// admin customers
+
+if (isset($_POST['add_admin_customer'])) {
+    $user_type_id = 4;
+    $user_account_status = "active";
+    $customer_username = $_POST['customer_username'];
+    $customer_password = $_POST['customer_password'];
+    $customer_first_name = $_POST['customer_first_name'];
+    $customer_middle_name = $_POST['customer_middle_name'];
+    $customer_last_name = $_POST['customer_last_name'];
+    $customer_dob = $_POST['customer_dob'];
+    $customer_email = $_POST['customer_email'];
+    $customer_contact_no = $_POST['customer_contact_no'];
+  
+    $sql = "INSERT INTO user (user_type_id, user_username, user_password, user_account_status) VALUES ('$user_type_id', '$customer_username', '$customer_password', '$user_account_status')";
+  
+    $sql2 = "INSERT INTO user_profile (user_profile_first_name, user_profile_last_name, user_profile_middle_name, user_profile_dob, user_profile_email_address, user_profile_contact_no) VALUES ('$customer_first_name', '$customer_last_name', '$customer_middle_name', '$customer_dob', '$customer_email', '$customer_contact_no')";
+    
+      if ($conn->query($sql) === TRUE) {
+          if ($conn->query($sql2) === TRUE) {
+              header("Location: ../admin_customers.php");
+          } else {
+              echo "Error: " . $sql . "<br>" . $conn->error;
+          }
+      } else {
+          echo "Error: " . $sql . "<br>" . $conn->error;
+      }
+  }
+
+if (isset($_POST['edit_admin_customer'])) {
+    $customer_id = $_POST['customer_id'];
+    $customer_first_name = $_POST['customer_first_name'];
+    $customer_middle_name = $_POST['customer_middle_name'];
+    $customer_last_name = $_POST['customer_last_name'];
+    $customer_email = $_POST['customer_email'];
+    $customer_contact_no = $_POST['customer_contact_no'];
+
+    $currentDateTime = date('Y-m-d H:i:s');
+
+    $sql = "UPDATE user_profile SET user_profile_first_name='$customer_first_name', user_profile_last_name='$customer_last_name',user_profile_middle_name='$customer_middle_name',user_profile_email_address='$customer_email',user_profile_contact_no='$customer_contact_no',user_profile_updated_at='$currentDateTime' WHERE user_profile_id=$customer_id";
+
+    if ($conn->query($sql) === TRUE) {
+        header("Location: ../admin_customers.php");
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+if (isset($_POST['delete_admin_customer'])) {
+    $customer_id = $_POST['customer_id'];
+  
+    $sql = "UPDATE user SET user_account_status='not active' WHERE user_id=$customer_id";
+  
+      if ($conn->query($sql) === TRUE) {
+          header("Location: ../admin_customers.php");
+      } else {
+          echo "Error: " . $sql . "<br>" . $conn->error;
+      }
+  }
+
+
 // Appointments
 if (isset($_POST['accept_appointment'])) {
     $appointment_id = $_POST['appointment_id'];

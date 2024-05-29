@@ -91,24 +91,25 @@ session_start();
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="admin_user.php" class="nav-link active">
+                                        <a href="admin_user.php" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Admin</p>
                                         </a>
                                     </li>
+                                    <li class="nav-item">
                                         <a href="#doctors" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Veterinary</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#nurses" class="nav-link">
+                                        <a href="admin_employee.php" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Employee</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#technicians" class="nav-link">
+                                        <a href="admin_customers.php" class="nav-link active text-white">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Customers</p>
                                         </a>
@@ -133,7 +134,7 @@ session_start();
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid p-4">
-                    <h1>Customers List</h1>
+                    <h1>Admin Customers List</h1>
                     <div class="card">
                         <div class="card-body">
                             <table class="table table-striped">
@@ -146,29 +147,101 @@ session_start();
                                         <th scope="col">Contact No.</th>
                                         <th scope="col">Created At</th>
                                         <th scope="col">Updated At</th>
+                                        <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $query = "SELECT * FROM user_profile WHERE user_id=2";
+                                    $query = "SELECT * FROM user WHERE user_type_id = 4 AND user_account_status = 'active'";
                                     $result = mysqli_query($conn, $query);
+
                                     $count = mysqli_num_rows($result);
                                     if ($count > 0) {
                                         while ($row = mysqli_fetch_assoc($result)) {
+                                          $id = $row['user_id'];
+                                          $query2 = "SELECT * FROM user_profile WHERE user_profile_id = $id";
+                                          $result2 = mysqli_query($conn, $query2);
+                                          while ($row2 = mysqli_fetch_assoc($result2)) {
                                     ?>
                                     <tr>
-                                        <td><?php echo $row['user_profile_first_name'] ?></td>
-                                        <td><?php echo $row['user_profile_middle_name'] ?></td>
-                                        <td><?php echo $row['user_profile_last_name'] ?></td>
-                                        <td><?php echo $row['user_profile_email_address'] ?></td>
-                                        <td><?php echo $row['user_profile_contact_no'] ?></td>
-                                        <td><?php echo $row['user_profile_created_at'] ?></td>
-                                        <td><?php echo $row['user_profile_updated_at'] ?></td>
+                                        <td><?php echo $row2['user_profile_first_name'] ?></td>
+                                        <td><?php echo $row2['user_profile_middle_name'] ?></td>
+                                        <td><?php echo $row2['user_profile_last_name'] ?></td>
+                                        <td><?php echo $row2['user_profile_email_address'] ?></td>
+                                        <td><?php echo $row2['user_profile_contact_no'] ?></td>
+                                        <td><?php echo $row2['user_profile_created_at'] ?></td>
+                                        <td><?php echo $row2['user_profile_updated_at'] ?></td>
+                                        <td>
+                                          <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit_admin_customer<?php echo $row['user_id']?>"><i class="fa-solid fa-pen-to-square"></i></button>
+                                          <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_admin_customer<?php echo $row['user_id']?>"><i class="fa-solid fa-box-archive"></i></button>
+                                        </td>
                                     </tr>
-                                    <?php }
+                                    <!-- customer delete modal -->
+                                    <div class="modal fade" id="delete_admin_customer<?php echo $row['user_id']?>" tabindex="-1" aria-labelledby="delete_admin_customer" aria-hidden="true">
+                                      <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Archieve Admin customer Confirmation</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <form action="./admin_functions/functions.php" method="POST">
+                                            <input type="hidden" name="customer_id" value="<?php echo $row['user_id']?>">
+                                            <div class="modal-body">
+                                              <p>Are you sure you want to archieve <b><?php echo $row2['user_profile_first_name'] . " " . $row2['user_profile_last_name']?></b> as Admin customer?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                              <button type="submit" name="delete_admin_customer" class="btn btn-pink-color">Confirm</button>
+                                            </div>
+                                          </form>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!-- customer edit modal -->
+                                    <div class="modal fade" id="edit_admin_customer<?php echo $row['user_id']?>" tabindex="-1" aria-labelledby="edit_admin_customer" aria-hidden="true">
+                                      <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Admin customer</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <form action="./admin_functions/functions.php" method="POST">
+                                            <input type="hidden" name="customer_id" value="<?php echo $row['user_id']?>">
+                                            <div class="modal-body">
+                                              <div class="mb-3">
+                                                <label class="form-label">First Name</label>
+                                                <input type="text" class="form-control" name="customer_first_name" placeholder="Enter customer first name..." value="<?php echo $row2['user_profile_first_name'] ?>">
+                                              </div>
+                                              <div class="mb-3">
+                                                <label class="form-label">Middle Name</label>
+                                                <input type="text" class="form-control" name="customer_middle_name" placeholder="Enter customer middle name..." value="<?php echo $row2['user_profile_middle_name'] ?>">
+                                              </div>
+                                              <div class="mb-3">
+                                                <label class="form-label">Last Name</label>
+                                                <input type="text" class="form-control" name="customer_last_name" placeholder="Enter customer last name..." value="<?php echo $row2['user_profile_last_name'] ?>">
+                                              </div>
+                                              <div class="mb-3">
+                                                <label class="form-label">Email address</label>
+                                                <input type="email" class="form-control" name="customer_email" placeholder="Enter customer email..." value="<?php echo $row2['user_profile_email_address'] ?>">
+                                              </div>
+                                              <div class="mb-3">
+                                                <label class="form-label">Contact No.</label>
+                                                <input type="text" class="form-control" name="customer_contact_no" placeholder="Enter customer contact no..." value="<?php echo $row2['user_profile_contact_no'] ?>">
+                                              </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                              <button type="submit" name="edit_admin_customer" class="btn btn-pink-color">Save</button>
+                                            </div>
+                                          </form>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <?php } 
+                                    }
                                     } else { ?>
                                     <tr>
-                                        <td colspan="4" class="text-center">
+                                        <td colspan="8" class="text-center">
                                             <h5>No data to show</h5>
                                         </td>
                                     </tr>
@@ -177,11 +250,142 @@ session_start();
                             </table>
                         </div>
                     </div>
+                    <div class="mb-4 mt-2 float-end">
+                        <button data-bs-toggle="modal" data-bs-target="#add_admin_customer" class="btn btn-pink-color">+</button>
+                    </div>
+                    <h1 class="mt-5">Admin Customers (Not Active) List</h1>
+                    <div class="card">
+                      <div class="card-body">
+                          <table class="table table-striped">
+                              <thead>
+                                  <tr>
+                                      <th scope="col">First Name</th>
+                                      <th scope="col">Middle Name</th>
+                                      <th scope="col">Last Name</th>
+                                      <th scope="col">Email Address</th>
+                                      <th scope="col">Contact No.</th>
+                                      <th scope="col">Created At</th>
+                                      <th scope="col">Updated At</th>
+                                      <th scope="col">Action</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <?php
+                                  $query = "SELECT * FROM user WHERE user_type_id = 4 AND user_account_status = 'not active'";
+                                  $result = mysqli_query($conn, $query);
+
+                                  $count = mysqli_num_rows($result);
+                                  if ($count > 0) {
+                                      while ($row = mysqli_fetch_assoc($result)) {
+                                        $id = $row['user_id'];
+                                        $query2 = "SELECT * FROM user_profile WHERE user_profile_id = $id";
+                                        $result2 = mysqli_query($conn, $query2);
+                                        while ($row2 = mysqli_fetch_assoc($result2)) {
+                                  ?>
+                                  <tr>
+                                      <td><?php echo $row2['user_profile_first_name'] ?></td>
+                                      <td><?php echo $row2['user_profile_middle_name'] ?></td>
+                                      <td><?php echo $row2['user_profile_last_name'] ?></td>
+                                      <td><?php echo $row2['user_profile_email_address'] ?></td>
+                                      <td><?php echo $row2['user_profile_contact_no'] ?></td>
+                                      <td><?php echo $row2['user_profile_created_at'] ?></td>
+                                      <td><?php echo $row2['user_profile_updated_at'] ?></td>
+                                      <td>
+                                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit_admin_customer<?php echo $row['user_id']?>"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_admin_customer<?php echo $row['user_id']?>"><i class="fa-solid fa-box-archive"></i></button>
+                                      </td>
+                                  </tr>
+                                  <!-- customer delete modal -->
+                                  <div class="modal fade" id="delete_admin_customer<?php echo $row['user_id']?>" tabindex="-1" aria-labelledby="delete_admin_customer" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h1 class="modal-title fs-5" id="exampleModalLabel">Archieve Admin customer Confirmation</h1>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form action="./admin_functions/functions.php" method="POST">
+                                          <input type="hidden" name="customer_id" value="<?php echo $row['user_id']?>">
+                                          <div class="modal-body">
+                                            <p>Are you sure you want to archieve <b><?php echo $row2['user_profile_first_name'] . " " . $row2['user_profile_last_name']?></b> as Admin customer?</p>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" name="delete_admin_customer" class="btn btn-pink-color">Confirm</button>
+                                          </div>
+                                        </form>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <?php } 
+                                  }
+                                  } else { ?>
+                                  <tr>
+                                      <td colspan="8" class="text-center">
+                                          <h5>No data to show</h5>
+                                      </td>
+                                  </tr>
+                                  <?php }; ?>
+                              </tbody>
+                          </table>
+                      </div>
+                    </div>
                 </div>
             </section>
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
+
+         <!-- add admin customer modal -->
+         <div class="modal fade" id="add_admin_customer" tabindex="-1" aria-labelledby="add_admin_customer" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add Admin customer</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form action="./admin_functions/functions.php" method="POST">
+                <div class="modal-body">
+                  <div class="mb-3">
+                    <label class="form-label">User Name/Email</label>
+                    <input type="email" class="form-control" name="customer_username" placeholder="Enter customer username..">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="text" class="form-control" name="customer_password" placeholder="Enter customer password...">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">First Name</label>
+                    <input type="text" class="form-control" name="customer_first_name" placeholder="Enter customer first name...">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Middle Name</label>
+                    <input type="text" class="form-control" name="customer_middle_name" placeholder="Enter customer middle name...">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Last Name</label>
+                    <input type="text" class="form-control" name="customer_last_name" placeholder="Enter customer last name...">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Date of Birthday</label>
+                    <input type="date" class="form-control" name="customer_dob">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Email address</label>
+                    <input type="email" class="form-control" name="customer_email" placeholder="Enter customer email...">
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Contact No.</label>
+                    <input type="text" class="form-control" name="customer_contact_no" placeholder="Enter customer contact no...">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" name="add_admin_customer" class="btn btn-pink-color">Save</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
 
         <!-- Main Footer -->
         <footer class="main-footer">

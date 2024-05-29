@@ -109,7 +109,7 @@ session_start();
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#technicians" class="nav-link">
+                                        <a href="admin_customers.php" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Customers</p>
                                         </a>
@@ -172,12 +172,12 @@ session_start();
                                         <td><?php echo $row2['user_profile_created_at'] ?></td>
                                         <td><?php echo $row2['user_profile_updated_at'] ?></td>
                                         <td>
-                                          <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit_admin_employee<?php echo $row2['user_id']?>"><i class="fa-solid fa-pen-to-square"></i></button>
-                                          <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_admin_employee<?php echo $row2['user_id']?>"><i class="fa-solid fa-box-archive"></i></button>
+                                          <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit_admin_employee<?php echo $row['user_id']?>"><i class="fa-solid fa-pen-to-square"></i></button>
+                                          <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_admin_employee<?php echo $row['user_id']?>"><i class="fa-solid fa-box-archive"></i></button>
                                         </td>
                                     </tr>
                                     <!-- employee delete modal -->
-                                    <div class="modal fade" id="delete_admin_employee<?php echo $row2['user_id']?>" tabindex="-1" aria-labelledby="delete_admin_employee" aria-hidden="true">
+                                    <div class="modal fade" id="delete_admin_employee<?php echo $row['user_id']?>" tabindex="-1" aria-labelledby="delete_admin_employee" aria-hidden="true">
                                       <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                           <div class="modal-header">
@@ -185,7 +185,7 @@ session_start();
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                           </div>
                                           <form action="./admin_functions/functions.php" method="POST">
-                                            <input type="hidden" name="employee_id" value="<?php echo $row2['user_id']?>">
+                                            <input type="hidden" name="employee_id" value="<?php echo $row['user_id']?>">
                                             <div class="modal-body">
                                               <p>Are you sure you want to archieve <b><?php echo $row2['user_profile_first_name'] . " " . $row2['user_profile_last_name']?></b> as Admin Employee?</p>
                                             </div>
@@ -198,7 +198,7 @@ session_start();
                                       </div>
                                     </div>
                                     <!-- employee edit modal -->
-                                    <div class="modal fade" id="edit_admin_employee<?php echo $row2['user_id']?>" tabindex="-1" aria-labelledby="edit_admin_employee" aria-hidden="true">
+                                    <div class="modal fade" id="edit_admin_employee<?php echo $row['user_id']?>" tabindex="-1" aria-labelledby="edit_admin_employee" aria-hidden="true">
                                       <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                           <div class="modal-header">
@@ -206,7 +206,7 @@ session_start();
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                           </div>
                                           <form action="./admin_functions/functions.php" method="POST">
-                                            <input type="hidden" name="employee_id" value="<?php echo $row2['user_id']?>">
+                                            <input type="hidden" name="employee_id" value="<?php echo $row['user_id']?>">
                                             <div class="modal-body">
                                               <div class="mb-3">
                                                 <label class="form-label">First Name</label>
@@ -291,12 +291,12 @@ session_start();
                                       <td><?php echo $row2['user_profile_created_at'] ?></td>
                                       <td><?php echo $row2['user_profile_updated_at'] ?></td>
                                       <td>
-                                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit_admin_employee<?php echo $row2['user_id']?>"><i class="fa-solid fa-pen-to-square"></i></button>
-                                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_admin_employee<?php echo $row2['user_id']?>"><i class="fa-solid fa-box-archive"></i></button>
+                                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit_admin_employee<?php echo $row['user_id']?>"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_admin_employee<?php echo $row['user_id']?>"><i class="fa-solid fa-box-archive"></i></button>
                                       </td>
                                   </tr>
                                   <!-- employee delete modal -->
-                                  <div class="modal fade" id="delete_admin_employee<?php echo $row2['user_id']?>" tabindex="-1" aria-labelledby="delete_admin_employee" aria-hidden="true">
+                                  <div class="modal fade" id="delete_admin_employee<?php echo $row['user_id']?>" tabindex="-1" aria-labelledby="delete_admin_employee" aria-hidden="true">
                                     <div class="modal-dialog modal-lg">
                                       <div class="modal-content">
                                         <div class="modal-header">
@@ -304,7 +304,7 @@ session_start();
                                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <form action="./admin_functions/functions.php" method="POST">
-                                          <input type="hidden" name="employee_id" value="<?php echo $row2['user_id']?>">
+                                          <input type="hidden" name="employee_id" value="<?php echo $row['user_id']?>">
                                           <div class="modal-body">
                                             <p>Are you sure you want to archieve <b><?php echo $row2['user_profile_first_name'] . " " . $row2['user_profile_last_name']?></b> as Admin Employee?</p>
                                           </div>
