@@ -91,11 +91,12 @@ session_start();
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="#admin" class="nav-link">
+                                        <a href="admin_user.php" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Admin</p>
                                         </a>
                                     </li>
+                                    <li class="nav-item">
                                         <a href="#doctors" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Veterinary</p>

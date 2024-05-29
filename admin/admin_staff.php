@@ -22,7 +22,8 @@
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+         <!-- Navbar -->
+         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
             <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -50,50 +51,85 @@
                 </div>
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <li class="nav-item">
-                            <a href="admin_page.php" class="nav-link">
-                                <i class="nav-icon fas fa-home"></i>
-                                <p>Dashboard</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="admin_patients.php" class="nav-link">
-                                <i class="nav-icon fas fa-paw"></i>
-                                <p>Patients</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="admin_services.php" class="nav-link">
-                                <i class="nav-icon fas fa-first-aid"></i>
-                                <p>Services</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="admin_products.php" class="nav-link">
-                                <i class="nav-icon fas fa-bone"></i>
-                                <p>Products</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="admin_appointments.php" class="nav-link">
-                                <i class="nav-icon fas fa-calendar-check"></i>
-                                <p>Appointments</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="admin_staff.php" class="nav-link active">
-                                <i class="nav-icon fas fa-users"></i>
-                                <p>Staff Members</p>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                            <li class="nav-item">
+                                <a href="admin_page.php" class="nav-link">
+                                    <i class="nav-icon fas fa-home"></i>
+                                    <p>Dashboard</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="admin_patients.php" class="nav-link">
+                                    <i class="nav-icon fas fa-paw"></i>
+                                    <p>Patients</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="admin_services.php" class="nav-link">
+                                    <i class="nav-icon fas fa-first-aid"></i>
+                                    <p>Services</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="admin_products.php" class="nav-link">
+                                    <i class="nav-icon fas fa-bone"></i>
+                                    <p>Products</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="admin_appointments.php" class="nav-link">
+                                    <i class="nav-icon fas fa-calendar-check"></i>
+                                    <p>Appointments</p>
+                                </a>
+                            </li>
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>
+                                        Users
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="admin_user.php" class="nav-link active text-white">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Admin</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#doctors" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Veterinary</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#nurses" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Employee</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#technicians" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Customers</p>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../logout.php" class="nav-link">
+                                    <i class="nav-icon fa-solid fa-right-from-bracket"></i>
+                                    <p>Logout</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 <!-- /.sidebar-menu -->
             </div>
             <!-- /.sidebar -->
         </aside>
-
+        
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Main content -->

@@ -32,13 +32,13 @@ if (isset($_POST['edit_admin_staff'])) {
     }
 }
 
-if (isset($_POST['delete_admin_staff'])) {
-  $staff_id = $_POST['staff_id'];
-
-  $sql = "DELETE FROM admin_staff_table WHERE id=$staff_id";
+if (isset($_POST['delete_admin_employee'])) {
+  $employee_id = $_POST['employee_id'];
+  $a = "archieve";
+  $sql = "UPDATE user SET user_account_status='$a' WHERE id=$employee_id";
 
     if ($conn->query($sql) === TRUE) {
-        header("Location: ../admin_staff.php");
+        header("Location: ../admin_employee.php");
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }

@@ -91,13 +91,14 @@
                                             <p>Admin</p>
                                         </a>
                                     </li>
+                                    <li class="nav-item">
                                         <a href="#doctors" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Veterinary</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="admin_staff.php" class="nav-link">
+                                        <a href="#nurses" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Employee</p>
                                         </a>

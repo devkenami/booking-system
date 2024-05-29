@@ -92,7 +92,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#vet" class="nav-link">
+                                        <a href="#doctors" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Veterinary</p>
                                         </a>

@@ -1,3 +1,8 @@
+<?php
+include '../config.php';
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +12,7 @@
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <!-- Bootstrap 4 -->
+    <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- AdminLTE CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/css/adminlte.min.css">
@@ -53,7 +58,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="admin_patients.php" class="nav-link active">
+                                <a href="admin_patients.php" class="nav-link">
                                     <i class="nav-icon fas fa-paw"></i>
                                     <p>Patients</p>
                                 </a>
@@ -98,7 +103,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#nurses" class="nav-link">
+                                        <a href="admin_employee.php" class="nav-link active text-white">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Employee</p>
                                         </a>
@@ -129,29 +134,83 @@
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid p-4">
-                    <h1>My Patients 🐶</h1>
-                    <div class="mb-4 mt-4 w-25">
-                        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Search pet...">
-                    </div>
+                    <h1>Admin Employee</h1>
                     <div class="card">
                         <div class="card-body">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Category</th>
-                                        <th scope="col">Owner's Name</th>
+                                        <th scope="col">First Name</th>
+                                        <th scope="col">Middle Name</th>
+                                        <th scope="col">Last Name</th>
+                                        <th scope="col">Email Address</th>
                                         <th scope="col">Contact No.</th>
+                                        <th scope="col">Created At</th>
+                                        <th scope="col">Updated At</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- Data rows go here -->
+                                    <?php
+                                    $query = "SELECT * FROM user WHERE user_type_id = 2";
+                                    $result = mysqli_query($conn, $query);
+
+                                    $count = mysqli_num_rows($result);
+                                    if ($count > 0) {
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                          $id = $row['user_id'];
+                                          $query = "SELECT * FROM user_profile WHERE user_id = $id";
+                                          $result = mysqli_query($conn, $query);
+                                          while ($row2 = mysqli_fetch_assoc($result)) {
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $row2['user_profile_first_name'] ?></td>
+                                        <td><?php echo $row2['user_profile_middle_name'] ?></td>
+                                        <td><?php echo $row2['user_profile_last_name'] ?></td>
+                                        <td><?php echo $row2['user_profile_email_address'] ?></td>
+                                        <td><?php echo $row2['user_profile_contact_no'] ?></td>
+                                        <td><?php echo $row2['user_profile_created_at'] ?></td>
+                                        <td><?php echo $row2['user_profile_updated_at'] ?></td>
+                                        <td>
+                                          <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit_admin_employee<?php echo $row2['user_id']?>"><i class="fa-solid fa-pen-to-square"></i></button>
+                                          <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_admin_employee<?php echo $row2['user_id']?>"><i class="fa-solid fa-box-archive"></i></button>
+                                        </td>
+                                    </tr>
+                                    <!-- employee delete modal -->
+                                    <div class="modal fade" id="delete_admin_employee<?php echo $row2['user_id']?>" tabindex="-1" aria-labelledby="delete_admin_employee" aria-hidden="true">
+                                      <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Admin Staff Confirmation</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                          <form action="./admin_functions/functions.php" method="POST">
+                                            <input type="hidden" name="employee_id" value="<?php echo $row2['user_id']?>">
+                                            <div class="modal-body">
+                                              <p>Are you sure you want to archieve <b><?php echo $row2['user_profile_first_name'] . " " . $row2['user_profile_last_name']?></b> as Admin Employee?</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                              <button type="submit" name="delete_admin_employee" class="btn btn-pink-color">Confirm</button>
+                                            </div>
+                                          </form>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <?php } }
+                                    } else { ?>
+                                    <tr>
+                                        <td colspan="4" class="text-center">
+                                            <h5>No data to show</h5>
+                                        </td>
+                                    </tr>
+                                    <?php }; ?>
                                 </tbody>
                             </table>
-                            <center><p>No patients found.</p></center>
                         </div>
+                    </div>
+                    <div class="mb-4 mt-2 float-end">
+                        <button data-bs-toggle="modal" class="btn btn-pink-color">+</button>
                     </div>
                 </div>
             </section>
@@ -161,7 +220,7 @@
 
         <!-- Main Footer -->
         <footer class="main-footer">
-            <strong>Copyright &copy; 2024 <a href="#">FurEver Fit</a>.</strong>
+            <strong>&copy; 2024 <a href="#">FurEver Fit</a>.</strong>
             All rights reserved.
         </footer>
     </div>
@@ -169,9 +228,12 @@
 
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <!-- Bootstrap 4 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap 5 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/js/adminlte.min.js"></script>
+    <script>
+        document.getElementById('datePicker').valueAsDate = new Date();
+    </script>
 </body>
 </html>
