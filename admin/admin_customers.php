@@ -133,7 +133,7 @@ session_start();
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid p-4">
-                    <h1>Admin List</h1>
+                    <h1>Customers List</h1>
                     <div class="card">
                         <div class="card-body">
                             <table class="table table-striped">
