@@ -121,6 +121,51 @@ if (isset($_POST['edit_admin_customer'])) {
     }
 }
 
+// admin
+
+if (isset($_POST['edit_admin'])) {
+    $admin_id = $_POST['admin_id'];
+    $admin_first_name = $_POST['admin_first_name'];
+    $admin_middle_name = $_POST['admin_middle_name'];
+    $admin_last_name = $_POST['admin_last_name'];
+    $admin_email = $_POST['admin_email'];
+    $admin_contact_no = $_POST['admin_contact_no'];
+
+    $currentDateTime = date('Y-m-d H:i:s');
+
+    $sql = "UPDATE user_profile SET user_profile_first_name='$admin_first_name', user_profile_last_name='$admin_last_name',user_profile_middle_name='$admin_middle_name',user_profile_email_address='$admin_email',user_profile_contact_no='$admin_contact_no',user_profile_updated_at='$currentDateTime' WHERE user_profile_id=$admin_id";
+
+    if ($conn->query($sql) === TRUE) {
+        header("Location: ../admin_account.php");
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+if (isset($_POST['deactivate_admin'])) {
+    $admin_id = $_POST['admin_id'];
+  
+    $sql = "UPDATE user SET user_account_status='not active' WHERE user_id=$admin_id";
+  
+      if ($conn->query($sql) === TRUE) {
+          header("Location: ../admin_account.php");
+      } else {
+          echo "Error: " . $sql . "<br>" . $conn->error;
+      }
+}
+
+if (isset($_POST['activate_admin'])) {
+    $admin_id = $_POST['admin_id'];
+  
+    $sql = "UPDATE user SET user_account_status='active' WHERE user_id=$admin_id";
+  
+      if ($conn->query($sql) === TRUE) {
+          header("Location: ../admin_account.php");
+      } else {
+          echo "Error: " . $sql . "<br>" . $conn->error;
+      }
+}
+
 if (isset($_POST['deactivate_customer'])) {
     $customer_id = $_POST['customer_id'];
   
