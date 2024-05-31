@@ -109,33 +109,59 @@
                       <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_user_pet<?php echo $row['id']?>"><i class="fa-solid fa-trash"></i></button>
                     </td>
                   </tr>
-                  <!-- staff edit modal -->
-                  <div class="modal fade" id="edit_admin_staff<?php echo $row['id']?>" tabindex="-1" aria-labelledby="edit_admin_staff" aria-hidden="true">
+                  <!-- edit pet modal -->
+                  <div class="modal fade" id="edit_user_pet<?php echo $row['id']?>" tabindex="-1" aria-labelledby="edit_user_pet" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Staff</h1>
+                          <h1 class="modal-title fs-5" id="edit_user_pet">Pet info</h1>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form action="./admin_functions/functions.php" method="POST">
-                          <input type="hidden" name="staff_id" value="<?php echo $row['id']?>">
+                        <form action="user_functions.php" method="POST" enctype="multipart/form-data">
+                          <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
                           <div class="modal-body">
-                            <div class="mb-3">
-                              <label for="exampleFormControlInput1" class="form-label">Staff Name</label>
-                              <input type="text" class="form-control" name="staff_name" placeholder="Enter staff name.." value="<?php echo $row['staff_name'] ?>">
+                            <div class="row mb-3">
+                              <div class="col">
+                                <label for="exampleFormControlInput1" class="form-label">Pet Name<span class="required">*</span></label>
+                                <input type="text" class="form-control" name="user_pet_name" placeholder="Enter your pet name..." value="<?php echo $row['user_pet_name'] ?>">
+                              </div>
                             </div>
-                            <div class="mb-3">
-                              <label for="exampleFormControlInput1" class="form-label">Contact No.</label>
-                              <input type="text" class="form-control" name="staff_contact_no" placeholder="Enter staff contact no..." value="<?php echo $row['staff_contact_no'] ?>">
+                            <div class="row mb-3">
+                              <div class="col">
+                                <label for="exampleFormControlInput1" class="form-label">Age<span class="required">*</span></label>
+                                <input type="number" class="form-control" name="user_pet_age" placeholder="Enter your pet age..." value="<?php echo $row['user_pet_age'] ?>">
+                              </div>
+                              <div class="col">
+                                <label for="exampleFormControlInput1" class="form-label">Weight</label>
+                                <input type="number" class="form-control" name="user_pet_weight" placeholder="Enter your pet weight in kg..." value="<?php echo $row['user_pet_weight'] ?>">
+                              </div>
+                              <div class="col">
+                                <label for="exampleFormControlInput1" class="form-label">Height</label>
+                                <input type="number" class="form-control" name="user_pet_height" placeholder="Enter your pet height in cm..." value="<?php echo $row['user_pet_height'] ?>">
+                              </div>
                             </div>
-                            <div class="mb-3">
-                              <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                              <input type="email" class="form-control" name="staff_email" placeholder="Enter staff email..." value="<?php echo $row['staff_email'] ?>">
+                            <div class="row mb-3">
+                              <div class="col">
+                                <label for="inputState" class="form-label">Pet Type<span class="required">*</span></label>
+                                <select id="inputState" class="form-select" name="user_pet_type">
+                                  <option selected value="Dog">Dog</option>
+                                  <option value="Hamster">Hamster</option>
+                                  <option value="Bird">Bird</option>
+                                  <option value="Snake">Snake</option>
+                                </select>
+                              </div>
+                              <div class="col">
+                                <label for="inputState" class="form-label">Gender<span class="required">*</span></label>
+                                <select id="inputState" class="form-select" name="user_pet_gender">
+                                  <option selected value="Male">Male</option>
+                                  <option value="Female">Female</option>
+                                </select>
+                              </div>
                             </div>
                           </div>
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" name="edit_admin_staff" class="btn btn-pink-color">Save</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-pink-color" name="add_user_pet">Save</button>
                           </div>
                         </form>
                       </div>
