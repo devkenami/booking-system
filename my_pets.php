@@ -184,7 +184,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <form action="user_functions.php" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="user_id" value="<?php echo $_SESSION['id']; ?>">
+            <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
             <div class="modal-body">
               <div class="row mb-3">
                 <div class="col">
