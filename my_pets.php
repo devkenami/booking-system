@@ -141,22 +141,22 @@
                       </div>
                     </div>
                   </div>
-                  <!-- staff delete modal -->
-                  <div class="modal fade" id="delete_admin_staff<?php echo $row['id']?>" tabindex="-1" aria-labelledby="delete_admin_staff" aria-hidden="true">
+                  <!-- delete userpet modal -->
+                  <div class="modal fade" id="delete_user_pet<?php echo $row['id']?>" tabindex="-1" aria-labelledby="delete_user_pet" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Admin Staff Confirmation</h1>
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Pet Confirmation</h1>
                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <form action="./admin_functions/functions.php" method="POST">
-                          <input type="hidden" name="staff_id" value="<?php echo $row['id']?>">
+                        <form action="./user_functions.php" method="POST">
+                          <input type="hidden" name="user_pet_id" value="<?php echo $row['id']?>">
                           <div class="modal-body">
-                            <p>Are you sure you want to remove <b><?php echo $row['staff_name'] ?></b> as Admin Staff?</p>
+                            <p>Are you sure you want to remove <b><?php echo $row['user_pet_name'] ?></b> on your pet list?</p>
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" name="delete_admin_staff" class="btn btn-pink-color">Confirm</button>
+                            <button type="submit" name="delete_user_pet" class="btn btn-pink-color">Confirm</button>
                           </div>
                         </form>
                       </div>

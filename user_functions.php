@@ -38,6 +38,19 @@ if (isset($_POST['add_user_pet'])) {
     }
 }
 
+if (isset($_POST['delete_user_pet'])) {
+    $user_pet_id = $_POST['user_pet_id'];
+  
+    $sql = "DELETE FROM user_pets_table WHERE id=$user_pet_id";
+  
+      if ($conn->query($sql) === TRUE) {
+          header("Location: my_pets.php");
+      } else {
+          echo "Error: " . $sql . "<br>" . $conn->error;
+      }
+  }
+
+
 // book appointment function
 if (isset($_POST['user_book_appointment'])) {
   $user_id = $_POST['user_id'];
