@@ -192,8 +192,8 @@ session_start();
                                         <td><?php echo $row['user_profile_created_at'] ?></td>
                                         <td><?php echo $row['user_profile_updated_at'] ?></td>
                                         <td>
-                                            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#edit_admin_employee<?php echo $row['user_id']?>"><i class="fa-solid fa-pen-to-square"></i></button>
-                                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_admin_employee<?php echo $row['user_id']?>"><i class="fa-solid fa-box-archive"></i></button>
+                                            <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#edit_admin_employee<?php echo $row['user_profile_id']?>"><i class="fa-solid fa-pen-to-square"></i></button>
+                                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_admin_employee<?php echo $row['user_profile_id']?>"><i class="fa-solid fa-box-archive"></i></button>
                                         </td>
                                     </tr>
                                     <?php }
