@@ -14,11 +14,32 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- AdminLTE CSS -->
+    <!-- AdminLTE v3 CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/css/adminlte.min.css">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../styles/style.css">
 </head>
+<style>
+    /* .pagination{
+        position: absolute;
+        right: 30px;
+        bottom: 10px;
+    } */
+    .mb-4{
+        position: absolute;
+        top: 80px;
+        right: 35px;
+        
+    }
+    .dropdown{
+        position: absolute;
+        right: 35px;
+        margin-right: 20px;
+    
+    }
+</style>
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
         <!-- Navbar -->
@@ -81,40 +102,11 @@ session_start();
                                     <p>Appointments</p>
                                 </a>
                             </li>
-                            <li class="nav-item has-treeview">
-                                <a href="#" class="nav-link">
+                            <li class="nav-item">
+                                <a href="admin_user.php" class="nav-link active">
                                     <i class="nav-icon fas fa-users"></i>
-                                    <p>
-                                        Users
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
+                                    <p>Users</p>
                                 </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="admin_user.php" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Admin</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#doctors" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Veterinary</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="admin_employee.php" class="nav-link active text-white">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Employee</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="admin_customers.php" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Customers</p>
-                                        </a>
-                                    </li>
-                                </ul>
                             </li>
                             <li class="nav-item">
                                 <a href="../logout.php" class="nav-link">
@@ -134,17 +126,35 @@ session_start();
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid p-4">
-                    <h1>Admin Employee List</h1>
+                    <h1>Employee List</h1>
+                    <div class="mb-4 mt-2 float-end">
+                        <div class="dropdown">
+                            <a class="btn btn-pink dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Employee
+                            </a>
+                                <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="admin_user.php">All</a></li>
+                                    <li><a class="dropdown-item" href="admin_account.php">Admin</a></li>
+                                    <li><a class="dropdown-item" href="#">Veterinary</a></li>
+                                    <li><a class="dropdown-item btn btn-pink" href="admin_employee.php">Employee</a></li>
+                                    <li><a class="dropdown-item" href="admin_customers.php">Customers</a></li>
+                                </ul>
+                        </div>
+                        <button data-bs-toggle="modal" data-bs-target="#add_admin_employee" class="btn btn-pink-color">+</button>
+                    </div>
                     <div class="card">
                         <div class="card-body">
-                            <table class="table table-striped">
+                            <table id="userTable" class="table table-striped">
                                 <thead>
                                     <tr>
+                                        <th scope="col">User id</th>
+                                        <th scope="col">User Type</th>
                                         <th scope="col">First Name</th>
                                         <th scope="col">Middle Name</th>
                                         <th scope="col">Last Name</th>
                                         <th scope="col">Email Address</th>
                                         <th scope="col">Contact No.</th>
+                                        <th scope="col">Status</th>
                                         <th scope="col">Created At</th>
                                         <th scope="col">Updated At</th>
                                         <th scope="col">Action</th>
@@ -164,15 +174,32 @@ session_start();
                                           while ($row2 = mysqli_fetch_assoc($result2)) {
                                     ?>
                                     <tr>
+                                        <td><?php echo $row2['user_profile_id'] ?></td>
+                                        <td><?php 
+                                            switch ($row['user_type_id']) {
+                                                case "1":
+                                                  echo "Admin";
+                                                  break;
+                                                case "2":
+                                                  echo "Employee";
+                                                  break;
+                                                case "3":
+                                                  echo "Veterinary";
+                                                  break;
+                                                case "4":
+                                                  echo "Customers ";
+                                              }
+                                        ?></td>
                                         <td><?php echo $row2['user_profile_first_name'] ?></td>
                                         <td><?php echo $row2['user_profile_middle_name'] ?></td>
                                         <td><?php echo $row2['user_profile_last_name'] ?></td>
                                         <td><?php echo $row2['user_profile_email_address'] ?></td>
                                         <td><?php echo $row2['user_profile_contact_no'] ?></td>
+                                        <td><?php echo $row['user_account_status'] ?></td>
                                         <td><?php echo $row2['user_profile_created_at'] ?></td>
                                         <td><?php echo $row2['user_profile_updated_at'] ?></td>
                                         <td>
-                                          <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit_admin_employee<?php echo $row['user_id']?>"><i class="fa-solid fa-pen-to-square"></i></button>
+                                          <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#edit_admin_employee<?php echo $row['user_id']?>"><i class="fa-solid fa-pen-to-square"></i></button>
                                           <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_admin_employee<?php echo $row['user_id']?>"><i class="fa-solid fa-box-archive"></i></button>
                                         </td>
                                     </tr>
@@ -181,13 +208,13 @@ session_start();
                                       <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                           <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Archieve Admin Employee Confirmation</h1>
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Deactivate Admin Employee Confirmation</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                           </div>
                                           <form action="./admin_functions/functions.php" method="POST">
                                             <input type="hidden" name="employee_id" value="<?php echo $row['user_id']?>">
                                             <div class="modal-body">
-                                              <p>Are you sure you want to archieve <b><?php echo $row2['user_profile_first_name'] . " " . $row2['user_profile_last_name']?></b> as Admin Employee?</p>
+                                              <p>Are you sure you want to set <b><?php echo $row2['user_profile_first_name'] . " " . $row2['user_profile_last_name']?></b> as not active Admin Employee?</p>
                                             </div>
                                             <div class="modal-footer">
                                               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -237,11 +264,11 @@ session_start();
                                         </div>
                                       </div>
                                     </div>
-                                    <?php } 
+                                    <?php }
                                     }
                                     } else { ?>
                                     <tr>
-                                        <td colspan="8" class="text-center">
+                                        <td colspan="11" class="text-center">
                                             <h5>No data to show</h5>
                                         </td>
                                     </tr>
@@ -250,20 +277,20 @@ session_start();
                             </table>
                         </div>
                     </div>
-                    <div class="mb-4 mt-2 float-end">
-                        <button data-bs-toggle="modal" data-bs-target="#add_admin_employee" class="btn btn-pink-color">+</button>
-                    </div>
-                    <h1 class="mt-5">Admin Employee (Not Active) List</h1>
+                    <h1 class="mt-5">(Not Active) List</h1>
                     <div class="card">
                       <div class="card-body">
-                          <table class="table table-striped">
+                      <table id="userTable2" class="table table-striped">
                               <thead>
                                   <tr>
+                                      <th scope="col">User id</th>
+                                      <th scope="col">User Type</th>
                                       <th scope="col">First Name</th>
                                       <th scope="col">Middle Name</th>
                                       <th scope="col">Last Name</th>
                                       <th scope="col">Email Address</th>
                                       <th scope="col">Contact No.</th>
+                                      <th scope="col">Status</th>
                                       <th scope="col">Created At</th>
                                       <th scope="col">Updated At</th>
                                       <th scope="col">Action</th>
@@ -283,34 +310,50 @@ session_start();
                                         while ($row2 = mysqli_fetch_assoc($result2)) {
                                   ?>
                                   <tr>
+                                    <td><?php echo $row2['user_profile_id'] ?></td>
+                                    <td><?php 
+                                      switch ($row['user_type_id']) {
+                                          case "1":
+                                            echo "Admin";
+                                            break;
+                                          case "2":
+                                            echo "Employee";
+                                            break;
+                                          case "3":
+                                            echo "Veterinary";
+                                            break;
+                                          case "4":
+                                            echo "Customers ";
+                                        }
+                                      ?></td>
                                       <td><?php echo $row2['user_profile_first_name'] ?></td>
                                       <td><?php echo $row2['user_profile_middle_name'] ?></td>
                                       <td><?php echo $row2['user_profile_last_name'] ?></td>
                                       <td><?php echo $row2['user_profile_email_address'] ?></td>
                                       <td><?php echo $row2['user_profile_contact_no'] ?></td>
+                                      <td><?php echo $row['user_account_status'] ?></td>
                                       <td><?php echo $row2['user_profile_created_at'] ?></td>
                                       <td><?php echo $row2['user_profile_updated_at'] ?></td>
                                       <td>
-                                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit_admin_employee<?php echo $row['user_id']?>"><i class="fa-solid fa-pen-to-square"></i></button>
-                                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_admin_employee<?php echo $row['user_id']?>"><i class="fa-solid fa-box-archive"></i></button>
+                                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#activate_admin_employee<?php echo $row['user_id']?>"><i class="fa-solid fa-star"></i></button>
                                       </td>
                                   </tr>
-                                  <!-- employee delete modal -->
-                                  <div class="modal fade" id="delete_admin_employee<?php echo $row['user_id']?>" tabindex="-1" aria-labelledby="delete_admin_employee" aria-hidden="true">
+                                  <!-- employee activate modal -->
+                                  <div class="modal fade" id="activate_admin_employee<?php echo $row['user_id']?>" tabindex="-1" aria-labelledby="activate_admin_employee" aria-hidden="true">
                                     <div class="modal-dialog modal-lg">
                                       <div class="modal-content">
                                         <div class="modal-header">
-                                          <h1 class="modal-title fs-5" id="exampleModalLabel">Archieve Admin Employee Confirmation</h1>
+                                          <h1 class="modal-title fs-5" id="exampleModalLabel">Activate Admin Employee Confirmation</h1>
                                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <form action="./admin_functions/functions.php" method="POST">
                                           <input type="hidden" name="employee_id" value="<?php echo $row['user_id']?>">
                                           <div class="modal-body">
-                                            <p>Are you sure you want to archieve <b><?php echo $row2['user_profile_first_name'] . " " . $row2['user_profile_last_name']?></b> as Admin Employee?</p>
+                                            <p>Are you sure you want to set <b><?php echo $row2['user_profile_first_name'] . " " . $row2['user_profile_last_name']?></b> as active Admin Employee?</p>
                                           </div>
                                           <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                            <button type="submit" name="delete_admin_employee" class="btn btn-pink-color">Confirm</button>
+                                            <button type="submit" name="activate_admin_employee" class="btn btn-pink-color">Confirm</button>
                                           </div>
                                         </form>
                                       </div>
@@ -320,7 +363,7 @@ session_start();
                                   }
                                   } else { ?>
                                   <tr>
-                                      <td colspan="8" class="text-center">
+                                      <td colspan="11" class="text-center">
                                           <h5>No data to show</h5>
                                       </td>
                                   </tr>
@@ -335,12 +378,12 @@ session_start();
         </div>
         <!-- /.content-wrapper -->
 
-         <!-- add admin employee modal -->
-         <div class="modal fade" id="add_admin_employee" tabindex="-1" aria-labelledby="add_admin_employee" aria-hidden="true">
+        <!-- add admin employee modal -->
+        <div class="modal fade" id="add_admin_employee" tabindex="-1" aria-labelledby="add_admin_employee" aria-hidden="true">
           <div class="modal-dialog modal-lg">
             <div class="modal-content">
               <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Add Admin Employee</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add Employee</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <form action="./admin_functions/functions.php" method="POST">
@@ -399,10 +442,19 @@ session_start();
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- Bootstrap 5 -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- AdminLTE App -->
+    <!-- AdminLTE v3 App -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/js/adminlte.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
     <script>
-        document.getElementById('datePicker').valueAsDate = new Date();
+        $(document).ready(function() {
+            $('#userTable').DataTable();
+        });
     </script>
-</body>
+    <script>
+        $(document).ready(function() {
+            $('#userTable2').DataTable();
+        });
+    </script>
 </html>

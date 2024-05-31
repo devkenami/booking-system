@@ -19,6 +19,25 @@ session_start();
     <!-- Custom CSS -->
     <link rel="stylesheet" href="../styles/style.css">
 </head>
+<style>
+    .pagination{
+        position: absolute;
+        right: 30px;
+        bottom: 10px;
+    }
+    .mb-4{
+        position: absolute;
+        top: 80px;
+        right: 35px;
+        
+    }
+    .dropdown{
+        position: absolute;
+        right: 35px;
+        margin-right: 20px;
+    
+    }
+</style>
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
         <!-- Navbar -->
@@ -76,13 +95,13 @@ session_start();
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="admin_appointments.php" class="nav-link active">
+                                <a href="admin_appointments.php" class="nav-link">
                                     <i class="nav-icon fas fa-calendar-check"></i>
                                     <p>Appointments</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="admin_user.php" class="nav-link">
+                                <a href="admin_user.php" class="nav-link active">
                                     <i class="nav-icon fas fa-users"></i>
                                     <p>Users</p>
                                 </a>
@@ -105,99 +124,60 @@ session_start();
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid p-4">
-                    <h1>Appointments 🗓</h1>
-                    <div class="mb-4 mt-4 w-25">
-                        <input type="date" class="form-control" id="datePicker">
+                    <h1>Admin List</h1>
+                    <div class="mb-4 mt-2 float-end">
+                        <div class="dropdown">
+                            <a class="btn btn-pink dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Admin
+                            </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="admin_user.php">All</a></li>
+                                    <li><a class="dropdown-item btn btn-pink" href="admin_account.php">Admin</a></li>
+                                    <li><a class="dropdown-item" href="#">Veterinary</a></li>
+                                    <li><a class="dropdown-item" href="admin_employee.php">Employee</a></li>
+                                    <li><a class="dropdown-item" href="admin_customers.php">Customers</a></li>
+                                </ul>
+                        </div>
+                        <button data-bs-toggle="modal" data-bs-target="#add_admin_employee" class="btn btn-pink-color">+</button>
                     </div>
                     <div class="card">
                         <div class="card-body">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Customer Name</th>
-                                        <th scope="col">Date</th>
-                                        <th scope="col">Time</th>
-                                        <th scope="col">Pet's Name</th>
-                                        <th scope="col">Pet Type</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Action</th>
+                                        <th scope="col">User id</th>
+                                        <th scope="col">First Name</th>
+                                        <th scope="col">Middle Name</th>
+                                        <th scope="col">Last Name</th>
+                                        <th scope="col">Email Address</th>
+                                        <th scope="col">Contact No.</th>
+                                        <th scope="col">Created At</th>
+                                        <th scope="col">Updated At</th>
+                                        <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $query = "SELECT * FROM user_appointment_table";
+                                    $query = "SELECT * FROM user_profile WHERE user_id=1";
                                     $result = mysqli_query($conn, $query);
                                     $count = mysqli_num_rows($result);
                                     if ($count > 0) {
                                         while ($row = mysqli_fetch_assoc($result)) {
                                     ?>
                                     <tr>
-                                        <td><?php echo $row['user_name'] ?></td>
-                                        <td><?php echo $row['user_date_appointment'] ?></td>
-                                        <td><?php echo $row['user_time_appointment'] ?></td>
-                                        <td><?php echo $row['user_pet_name'] ?></td>
-                                        <td><?php echo $row['user_pet_type'] ?></td>
+                                        <td><?php echo $row['user_profile_id'] ?></td>
+                                        <td><?php echo $row['user_profile_first_name'] ?></td>
+                                        <td><?php echo $row['user_profile_middle_name'] ?></td>
+                                        <td><?php echo $row['user_profile_last_name'] ?></td>
+                                        <td><?php echo $row['user_profile_email_address'] ?></td>
+                                        <td><?php echo $row['user_profile_contact_no'] ?></td>
+                                        <td><?php echo $row['user_profile_created_at'] ?></td>
+                                        <td><?php echo $row['user_profile_updated_at'] ?></td>
                                         <td>
-                                            <?php if ($row['appointment_status'] == "waiting") { ?>
-                                            <span class="badge bg-warning text-dark">Waiting to be approved</span>
-                                            <?php } elseif ($row['appointment_status'] == "accepted") { ?>
-                                            <span class="badge bg-success">Accepted</span>
-                                            <?php } else { ?>
-                                            <span class="badge bg-danger">Declined</span>
-                                            <?php } ?>
-                                        </td>
-                                        <td>
-                                            <?php if ($row['appointment_status'] != "waiting") { ?>
-                                            <span class="badge bg-light text-dark">None</span>
-                                            <?php } else { ?>
-                                            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#accept_appointment<?php echo $row['id'] ?>">Accept</button>
-                                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#decline_appointment<?php echo $row['id'] ?>">Decline</button>
-                                            <?php } ?>
+                                        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#edit_admin_employee<?php echo $row['user_id']?>"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete_admin_employee<?php echo $row['user_id']?>"><i class="fa-solid fa-box-archive"></i></button>
                                         </td>
                                     </tr>
-
-                                    <!-- accept appointment -->
-                                    <div class="modal fade" id="accept_appointment<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="delete_admin_staff" aria-hidden="true">
-                                        <div class="modal-dialog modal-lg">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmation</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <form action="./admin_functions/functions.php" method="POST">
-                                                    <input type="hidden" name="appointment_id" value="<?php echo $row['id']; ?>">
-                                                    <div class="modal-body">
-                                                        <p>Are you sure you want to accept this appointment?</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                        <button type="submit" name="accept_appointment" class="btn btn-success">Confirm</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- decline appointment -->
-                                    <div class="modal fade" id="decline_appointment<?php echo $row['id'] ?>" tabindex="-1" aria-labelledby="delete_admin_staff" aria-hidden="true">
-                                        <div class="modal-dialog modal-lg">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmation</h1>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <form action="./admin_functions/functions.php" method="POST">
-                                                    <input type="hidden" name="appointment_id" value="<?php echo $row['id']; ?>">
-                                                    <div class="modal-body">
-                                                        <p>Are you sure you want to decline this appointment?</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                        <button type="submit" name="decline_appointment" class="btn btn-danger">Confirm</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <?php }
                                     } else { ?>
                                     <tr>

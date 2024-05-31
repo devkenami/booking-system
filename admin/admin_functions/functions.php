@@ -17,7 +17,7 @@ if (isset($_POST['add_admin_employee'])) {
 
   $sql = "INSERT INTO user (user_type_id, user_username, user_password, user_account_status) VALUES ('$user_type_id', '$employee_username', '$employee_password', '$user_account_status')";
 
-  $sql2 = "INSERT INTO user_profile (user_profile_first_name, user_profile_last_name, user_profile_middle_name, user_profile_dob, user_profile_email_address, user_profile_contact_no) VALUES ('$employee_first_name', '$employee_last_name', '$employee_middle_name', '$employee_dob', '$employee_email', '$employee_contact_no')";
+  $sql2 = "INSERT INTO user_profile (user_type_id, user_profile_first_name, user_profile_last_name, user_profile_middle_name, user_profile_dob, user_profile_email_address, user_profile_contact_no) VALUES ('$user_type_id', '$employee_first_name', '$employee_last_name', '$employee_middle_name', '$employee_dob', '$employee_email', '$employee_contact_no')";
   
     if ($conn->query($sql) === TRUE) {
         if ($conn->query($sql2) === TRUE) {
@@ -29,7 +29,7 @@ if (isset($_POST['add_admin_employee'])) {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
-
+// edit employee
 if (isset($_POST['edit_admin_employee'])) {
     $employee_id = $_POST['employee_id'];
     $employee_first_name = $_POST['employee_first_name'];
@@ -48,7 +48,7 @@ if (isset($_POST['edit_admin_employee'])) {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
-
+// delete/archive employee
 if (isset($_POST['delete_admin_employee'])) {
   $employee_id = $_POST['employee_id'];
 
@@ -60,6 +60,18 @@ if (isset($_POST['delete_admin_employee'])) {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
+
+if (isset($_POST['activate_admin_employee'])) {
+    $employee_id = $_POST['employee_id'];
+  
+    $sql = "UPDATE user SET user_account_status='active' WHERE user_id=$employee_id";
+  
+      if ($conn->query($sql) === TRUE) {
+          header("Location: ../admin_employee.php");
+      } else {
+          echo "Error: " . $sql . "<br>" . $conn->error;
+      }
+  }
 
 // admin customers
 
@@ -77,7 +89,7 @@ if (isset($_POST['add_admin_customer'])) {
   
     $sql = "INSERT INTO user (user_type_id, user_username, user_password, user_account_status) VALUES ('$user_type_id', '$customer_username', '$customer_password', '$user_account_status')";
   
-    $sql2 = "INSERT INTO user_profile (user_profile_first_name, user_profile_last_name, user_profile_middle_name, user_profile_dob, user_profile_email_address, user_profile_contact_no) VALUES ('$customer_first_name', '$customer_last_name', '$customer_middle_name', '$customer_dob', '$customer_email', '$customer_contact_no')";
+    $sql2 = "INSERT INTO user_profile (user_type_id, user_profile_first_name, user_profile_last_name, user_profile_middle_name, user_profile_dob, user_profile_email_address, user_profile_contact_no) VALUES ('$user_type_id', '$customer_first_name', '$customer_last_name', '$customer_middle_name', '$customer_dob', '$customer_email', '$customer_contact_no')";
     
       if ($conn->query($sql) === TRUE) {
           if ($conn->query($sql2) === TRUE) {
@@ -109,7 +121,7 @@ if (isset($_POST['edit_admin_customer'])) {
     }
 }
 
-if (isset($_POST['delete_admin_customer'])) {
+if (isset($_POST['deactivate_customer'])) {
     $customer_id = $_POST['customer_id'];
   
     $sql = "UPDATE user SET user_account_status='not active' WHERE user_id=$customer_id";
@@ -119,7 +131,19 @@ if (isset($_POST['delete_admin_customer'])) {
       } else {
           echo "Error: " . $sql . "<br>" . $conn->error;
       }
-  }
+}
+
+if (isset($_POST['activate_customer'])) {
+$customer_id = $_POST['customer_id'];
+
+$sql = "UPDATE user SET user_account_status='active' WHERE user_id=$customer_id";
+
+    if ($conn->query($sql) === TRUE) {
+        header("Location: ../admin_customers.php");
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
 
 
 // Appointments
@@ -144,3 +168,34 @@ if (isset($_POST['decline_appointment'])) {
           echo "Error: " . $sql . "<br>" . $conn->error;
       }
 }
+
+
+
+
+
+if (isset($_POST['add_user'])) {
+    $user_account_status = "active";
+    $user_type_id = $_POST['user_type'];
+    $user_username = $_POST['user_username'];
+    $user_password = $_POST['user_password'];
+    $user_first_name = $_POST['user_first_name'];
+    $user_middle_name = $_POST['user_middle_name'];
+    $user_last_name = $_POST['user_last_name'];
+    $user_dob = $_POST['user_dob'];
+    $user_email = $_POST['user_email'];
+    $user_contact_no = $_POST['user_contact_no'];
+  
+    $sql = "INSERT INTO user (user_type_id, user_username, user_password, user_account_status) VALUES ('$user_type_id', '$user_username', '$user_password', '$user_account_status')";
+  
+    $sql2 = "INSERT INTO user_profile (user_type_id, user_profile_first_name, user_profile_last_name, user_profile_middle_name, user_profile_dob, user_profile_email_address, user_profile_contact_no) VALUES ('$user_type_id', '$user_first_name', '$user_last_name', '$user_middle_name', '$user_dob', '$user_email', '$user_contact_no')";
+    
+      if ($conn->query($sql) === TRUE) {
+          if ($conn->query($sql2) === TRUE) {
+              header("Location: ../admin_user.php");
+          } else {
+              echo "Error: " . $sql . "<br>" . $conn->error;
+          }
+      } else {
+          echo "Error: " . $sql . "<br>" . $conn->error;
+      }
+  }

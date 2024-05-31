@@ -82,41 +82,13 @@ session_start();
                                     <p>Appointments</p>
                                 </a>
                             </li>
-                            <li class="nav-item has-treeview">
-                                <a href="#" class="nav-link">
+                            <li class="nav-item">
+                                <a href="admin_user.php" class="nav-link">
                                     <i class="nav-icon fas fa-users"></i>
-                                    <p>
-                                        Users
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
+                                    <p>Users</p>
                                 </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="admin_user.php" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Admin</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#doctors" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Veterinary</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#nurses" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Employee</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#technicians" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Customers</p>
-                                        </a>
-                                    </li>
-                                </ul>
                             </li>
+                                
                             <li class="nav-item">
                                 <a href="../logout.php" class="nav-link">
                                     <i class="nav-icon fa-solid fa-right-from-bracket"></i>
