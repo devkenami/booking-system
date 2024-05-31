@@ -164,7 +164,7 @@
                   </div>
                 <?php }} else { ?>
                   <tr>
-                    <td colspan="4" class="text-center">
+                    <td colspan="8" class="text-center">
                       <h5>No data to show</h5>
                     </td>
                   </tr>

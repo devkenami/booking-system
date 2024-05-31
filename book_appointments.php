@@ -68,7 +68,7 @@
             <p style="max-width: 600px;">Book appointments and schedule your pet care etc...</p>
 
             <form action="user_functions.php" method="POST" class="mt-3">
-                <input type="hidden" name="user_id" value="<?php echo $_SESSION['id']; ?>">
+                <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
                 <input type="hidden" name="user_name" value="<?php echo $_SESSION['user_name']; ?>">
 
                 <div class="row">
